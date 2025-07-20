@@ -29,7 +29,7 @@ type RedisConfig struct {
 
 type KafkaConfig struct {
 	Brokers []string `yaml:"brokers"`
-	Topic   string   `yaml:"topic"`
+	Topics  []string `yaml:"topics"`
 	GroupID string   `yaml:"groupId"`
 }
 
