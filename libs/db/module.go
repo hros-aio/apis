@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/config/v2"
@@ -30,7 +29,6 @@ func Register() core.Modules {
 
 					return sqlorm.Config{
 						Dialect: postgres.Open(dns),
-						Sync:    os.Getenv("ENV") != "production",
 						Retry: &sqlorm.RetryOptions{
 							MaxRetries: 5,
 							Delay:      1000, // milliseconds
@@ -45,7 +43,7 @@ func Register() core.Modules {
 				microservices.RegisterClientFactory(func(ref core.RefProvider) []microservices.ClientOptions {
 					cfg := config.Inject[shared.Config](ref)
 
-					transporter := kafka.NewClient(kafka.Options{
+					kafkaConn := kafka.NewClient(kafka.Options{
 						Options: kafka.Config{
 							Brokers: cfg.Kafka.Brokers,
 							Topics:  cfg.Kafka.Topics,
@@ -55,7 +53,7 @@ func Register() core.Modules {
 					return []microservices.ClientOptions{
 						{
 							Name:      microservices.KAFKA,
-							Transport: transporter,
+							Transport: kafkaConn,
 						},
 					}
 				}),
