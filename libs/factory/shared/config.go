@@ -6,6 +6,7 @@ type Config struct {
 	Mongo    MongoConfig    `yaml:"mongo"`
 	Redis    RedisConfig    `yaml:"redis"`
 	Kafka    KafkaConfig    `yaml:"kafka"`
+	Nats     NatsConfig     `yaml:"nats"`
 	Jwt      JwtSecret
 }
 
@@ -31,6 +32,10 @@ type KafkaConfig struct {
 	Brokers []string `yaml:"brokers"`
 	Topics  []string `yaml:"topics"`
 	GroupID string   `yaml:"groupId"`
+}
+
+type NatsConfig struct {
+	Addr string `yaml:"addr"`
 }
 
 type JwtSecret struct {
