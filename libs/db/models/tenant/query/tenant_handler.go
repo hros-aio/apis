@@ -14,33 +14,25 @@ func NewHandler(module core.Module) core.Provider {
 
 	var tenant TenantSchema
 	handler.OnEvent(tenant.CollectionName(), func(ctx microservices.Ctx) error {
+		var input TenantSchema
+		if err := ctx.PayloadParser(&input); err != nil {
+			return err
+		}
 		action := ctx.Headers("action")
 		switch action {
 		case "create":
-			var input TenantSchema
-			if err := ctx.PayloadParser(&input); err != nil {
-				return err
-			}
 			_, err := model.Create(&input)
 			if err != nil {
 				return err
 			}
 			return nil
 		case "update":
-			var input TenantSchema
-			if err := ctx.PayloadParser(&input); err != nil {
-				return err
-			}
 			err := model.UpdateByID(input.ID, &input)
 			if err != nil {
 				return err
 			}
 			return nil
 		case "delete":
-			var input TenantSchema
-			if err := ctx.PayloadParser(&input); err != nil {
-				return err
-			}
 			err := model.DeleteByID(input.ID)
 			if err != nil {
 				return err
