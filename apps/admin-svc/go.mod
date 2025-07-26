@@ -75,4 +75,5 @@ require (
 	gorm.io/gorm v1.30.0 // indirect
 )
 
+replace github.com/hros-aio/apis/libs/factory => ../../libs/factory
 replace github.com/hros-aio/apis/libs/db => ../../libs/db
