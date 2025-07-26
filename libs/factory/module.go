@@ -11,13 +11,14 @@ import (
 	"github.com/tinh-tinh/fetch/v2"
 	"github.com/tinh-tinh/queue/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
+	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
 
 func Register() core.Modules {
 	return func(module core.Module) core.Module {
 		return module.New(core.NewModuleOptions{
 			Imports: []core.Modules{
-				config.ForRoot[shared.Config](".env", "configuration.yml"),
+				config.ForRoot[shared.Config]("./config/configuration.yaml"),
 				queue.ForRootFactory(func(ref core.RefProvider) *queue.Options {
 					cfg := config.Inject[shared.Config](ref)
 					return &queue.Options{
@@ -50,6 +51,7 @@ func Register() core.Modules {
 				fetch.Register(&fetch.Config{
 					Timeout: 5000,
 				}),
+				logger.Module(logger.Options{}),
 			},
 		})
 	}
