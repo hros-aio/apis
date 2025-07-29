@@ -16,7 +16,7 @@ type ContextInfo struct {
 	TenantID  string `json:"tenantId"`
 }
 
-func SetContent(ctx core.Ctx) error {
+func SetContext(ctx core.Ctx) error {
 	jwtSvc, ok := ctx.Ref(auth.JWT_TOKEN).(auth.Jwt)
 	if !ok {
 		return exception.InternalServer("JWT service not found")
