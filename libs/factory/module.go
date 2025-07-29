@@ -52,6 +52,7 @@ func Register() core.Modules {
 					Timeout: 5000,
 				}),
 				logger.Module(logger.Options{}),
+				Metric(),
 			},
 		})
 	}
