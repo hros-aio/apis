@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 
+	"github.com/hros-aio/apis/libs/db/models/tenant"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/config/v2"
 	"github.com/tinh-tinh/mongoose/v2"
@@ -57,6 +58,7 @@ func Register() core.Modules {
 						},
 					}
 				}),
+				tenant.NewModule,
 			},
 		})
 	}
