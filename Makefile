@@ -1,0 +1,7 @@
+.PHONY: run-admin-svc
+run-admin-svc:
+	cd apps/admin-svc && air
+
+.PHONY: run-setting-svc
+run-setting-svc:
+	cd apps/setting-svc && air

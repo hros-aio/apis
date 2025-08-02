@@ -51,7 +51,9 @@ func Register() core.Modules {
 				fetch.Register(&fetch.Config{
 					Timeout: 5000,
 				}),
-				logger.Module(logger.Options{}),
+				logger.Module(logger.Options{
+					Rotate: true,
+				}),
 			},
 		})
 	}

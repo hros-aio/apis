@@ -1,21 +1,17 @@
 package tenant
 
-import "github.com/tinh-tinh/sqlorm/v2"
+import "github.com/hros-aio/apis/libs/sql/common/base"
 
-type ContactPersonDb struct {
-	ContactName  string `gorm:"column:name;type:varchar(64);not null;" json:"name"`
-	ContactEmail string `gorm:"column:email;type:varchar(256);not null;" json:"email"`
-	ContactPhone string `gorm:"column:phone;type:varchar(64);not null;" json:"phone"`
+type ContactPerson struct {
+	ContactName  string `json:"name"`
+	ContactEmail string ` json:"email"`
+	ContactPhone string `json:"phone"`
 }
 
 type TenantModel struct {
-	sqlorm.Model `gorm:"embedded"`
-	TenantId     string          `gorm:"column:tenant_id;type:varchar(64);not null;index:idx_tenant_id,unique" json:"tenantId"`
-	Name         string          `gorm:"column:name;type:varchar(64);not null;" json:"name"`
-	Description  string          `gorm:"column:description;type:varchar(256);not null;" json:"description"`
-	Contact      ContactPersonDb `gorm:"embedded;embeddedPrefix:contact_" json:"contact"`
-}
-
-func (TenantModel) TableName() string {
-	return "tenants"
+	base.Model
+	TenantId    string        `json:"tenantId"`
+	Name        string        `json:"name"`
+	Description string        ` json:"description"`
+	Contact     ContactPerson `json:"contact"`
 }

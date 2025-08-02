@@ -9,7 +9,7 @@ import (
 func DefaultSwagger(prefix string) *swagger.SpecBuilder {
 	name := formatNamePrefix(prefix)
 	return swagger.NewSpecBuilder().
-		SetTitle(name + " API").
+		SetTitle(name + " Doc").
 		SetDescription(name + " API documentation").
 		SetVersion("v1.0.0")
 }

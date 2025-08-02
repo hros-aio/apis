@@ -15,7 +15,8 @@ import (
 	"gorm.io/driver/postgres"
 )
 
-func Register() core.Modules {
+func Register(models ...any) core.Modules {
+	isSync := len(models) > 0
 	return func(module core.Module) core.Module {
 		return module.New(core.NewModuleOptions{
 			Imports: []core.Modules{
@@ -35,6 +36,8 @@ func Register() core.Modules {
 							MaxRetries: 5,
 							Delay:      1000, // milliseconds
 						},
+						Sync:   isSync,
+						Models: models,
 					}
 				}),
 				microservices.RegisterClientFactory(func(ref core.RefProvider) []microservices.ClientOptions {
