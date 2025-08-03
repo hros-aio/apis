@@ -4,8 +4,6 @@ import (
 	"fmt"
 
 	"github.com/hros-aio/apis/libs/factory/shared"
-	"github.com/hros-aio/apis/libs/sql/common/company"
-	"github.com/hros-aio/apis/libs/sql/common/tenant"
 
 	"github.com/tinh-tinh/config/v2"
 	"github.com/tinh-tinh/sqlorm/v2"
@@ -57,8 +55,6 @@ func Register(models ...any) core.Modules {
 						},
 					}
 				}),
-				tenant.NewModule,
-				company.NewModule,
 			},
 		})
 	}

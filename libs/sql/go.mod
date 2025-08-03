@@ -3,6 +3,7 @@ module github.com/hros-aio/apis/libs/sql
 go 1.24.1
 
 require (
+	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/sqlorm/v2 v2.3.1
@@ -10,6 +11,7 @@ require (
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
 	gorm.io/driver/postgres v1.5.9
+	gorm.io/gorm v1.30.0
 )
 
 require (
@@ -19,7 +21,6 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
@@ -44,7 +45,6 @@ require (
 	golang.org/x/sync v0.15.0 // indirect
 	golang.org/x/text v0.26.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.30.0 // indirect
 )
 
 replace github.com/hros-aio/apis/libs/factory => ../factory

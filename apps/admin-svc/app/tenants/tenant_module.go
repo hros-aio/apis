@@ -1,10 +1,15 @@
 package tenants
 
-import "github.com/tinh-tinh/tinhtinh/v2/core"
+import (
+	"github.com/hros-aio/apis/libs/sql/common/tenant"
+	"github.com/tinh-tinh/tinhtinh/v2/core"
+)
 
 func NewModule(module core.Module) core.Module {
 	return module.New(core.NewModuleOptions{
-		Imports:     []core.Modules{},
+		Imports: []core.Modules{
+			tenant.NewModule,
+		},
 		Controllers: []core.Controllers{NewController},
 		Providers:   []core.Providers{NewService},
 	})
