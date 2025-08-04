@@ -5,13 +5,20 @@ import (
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
-type CompanyRepository struct {
-	repo *sqlorm.Repository[CompanyModel]
+type Repository struct {
+	Model *sqlorm.Repository[CompanyDB]
 }
 
+const REPOSITORY = "COMPANY_REPOSITORY"
+
 func NewRepository(module core.Module) core.Provider {
-	repo := sqlorm.InjectRepository[CompanyModel](module)
-	return module.NewProvider(&CompanyRepository{
-		repo: repo,
+	repo := sqlorm.InjectRepository[CompanyDB](module)
+	return module.NewProvider(core.ProviderOptions{
+		Name: REPOSITORY,
+		Value: &Repository{
+			Model: repo,
+		},
 	})
 }
+
+func (r *Repository) Create(model any) {}

@@ -8,7 +8,7 @@ import (
 func NewModule(module core.Module) core.Module {
 	return module.New(core.NewModuleOptions{
 		Imports: []core.Modules{
-			sqlorm.ForFeature(sqlorm.NewRepo(CompanyModel{})),
+			sqlorm.ForFeature(sqlorm.NewRepo(CompanyDB{})),
 		},
 		Providers: []core.Providers{NewRepository},
 		Exports:   []core.Providers{NewRepository},

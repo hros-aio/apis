@@ -22,7 +22,7 @@ func NewRepository(module core.Module) core.Provider {
 	})
 }
 
-func (r Repository) Create(model any) (*TenantModel, error) {
+func (r *Repository) Create(model any) (*TenantModel, error) {
 	data, err := r.Model.Create(model)
 	if err != nil {
 		return nil, err
