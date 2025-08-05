@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/hros-aio/apis/apps/setting-svc/app/companies"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/sql"
@@ -13,6 +14,7 @@ func NewModule() core.Module {
 		Imports: []core.Modules{
 			factory.Register(),
 			sql.Register(&company.CompanyDB{}),
+			companies.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,
