@@ -10,9 +10,11 @@ func NewController(module core.Module) core.Controller {
 		Metadata(swagger.ApiTag("Companies")).
 		Registry()
 
-	ctrl.Post("", func(ctx core.Ctx) error {
-		return ctx.JSON(nil)
-	})
+	ctrl.
+		Pipe(core.BodyParser[CreateCompanyInput]{}).
+		Post("", func(ctx core.Ctx) error {
+			return ctx.JSON(nil)
+		})
 
 	return ctrl
 }
