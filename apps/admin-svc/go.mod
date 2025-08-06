@@ -4,7 +4,7 @@ go 1.24.1
 
 require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
-	github.com/hros-aio/apis/libs/sql v0.0.1
+	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/tinh-tinh/swagger/v2 v2.2.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
 )
@@ -70,5 +70,5 @@ require (
 
 replace (
 	github.com/hros-aio/apis/libs/factory => ../../libs/factory
-	github.com/hros-aio/apis/libs/sql => ../../libs/sql
+	github.com/hros-aio/apis/libs/psql => ../../libs/psql
 )
