@@ -1,8 +1,8 @@
 package company
 
 import (
-	"github.com/hros-aio/apis/libs/sql/common/base"
-	"github.com/hros-aio/apis/libs/sql/common/tenant"
+	"github.com/hros-aio/apis/libs/psql/common/base"
+	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )

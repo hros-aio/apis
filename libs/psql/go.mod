@@ -1,4 +1,4 @@
-module github.com/hros-aio/apis/libs/sql
+module github.com/hros-aio/apis/libs/psql
 
 go 1.24.1
 

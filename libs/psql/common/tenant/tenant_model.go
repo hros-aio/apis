@@ -1,6 +1,6 @@
 package tenant
 
-import "github.com/hros-aio/apis/libs/sql/common/base"
+import "github.com/hros-aio/apis/libs/psql/common/base"
 
 type ContactPerson struct {
 	ContactName  string `json:"name" example:"Renil"`

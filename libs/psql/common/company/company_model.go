@@ -1,8 +1,8 @@
 package company
 
 import (
-	"github.com/hros-aio/apis/libs/sql/common/base"
-	"github.com/hros-aio/apis/libs/sql/common/tenant"
+	"github.com/hros-aio/apis/libs/psql/common/base"
+	"github.com/hros-aio/apis/libs/psql/common/tenant"
 )
 
 type CompanyModel struct {
