@@ -4,7 +4,10 @@ go 1.24.1
 
 require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
-	github.com/hros-aio/apis/libs/sql v0.0.1
+	github.com/hros-aio/apis/libs/psql v1.0.0
+	github.com/hros-aio/apis/libs/saga v0.0.1
+	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
+	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
 )
 
@@ -57,8 +60,6 @@ require (
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/sqlorm/v2 v2.3.1 // indirect
 	github.com/tinh-tinh/swagger/v2 v2.2.0 // indirect
-	github.com/tinh-tinh/tinhtinh/microservices v1.1.0 // indirect
-	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0 // indirect
 	golang.org/x/crypto v0.39.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect
@@ -66,4 +67,10 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/postgres v1.5.9 // indirect
 	gorm.io/gorm v1.30.0 // indirect
+)
+
+replace (
+	github.com/hros-aio/apis/libs/factory => ../../libs/factory
+	github.com/hros-aio/apis/libs/psql => ../../libs/psql
+		github.com/hros-aio/apis/libs/saga => ../../libs/saga
 )

@@ -7,40 +7,52 @@ import (
 
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/hros-aio/apis/libs/saga"
+	"github.com/hros-aio/apis/libs/saga/events"
+	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
+	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
 
 type TenantService struct {
-	tenantRepo *tenant.Repository
+	tenantRepo     *tenant.Repository
+	eventPublisher *saga.EventPulisher
+	logger         *logger.Logger
 }
 
 func NewService(module core.Module) core.Provider {
 	tenantRepo := module.Ref(tenant.REPOSITORY).(*tenant.Repository)
+	eventPublisher := module.Ref(saga.EVENT_PUBLISHER).(*saga.EventPulisher)
+	logger := logger.InjectLog(module)
 
 	return module.NewProvider(&TenantService{
-		tenantRepo: tenantRepo,
+		tenantRepo:     tenantRepo,
+		eventPublisher: eventPublisher,
+		logger:         logger,
 	})
 }
 
 func (s *TenantService) Create(ctx middleware.ContextInfo, input *TenantCreateInput) (*tenant.TenantModel, error) {
-	model := &tenant.TenantDB{
-		Name:        input.Name,
-		Description: input.Description,
-		Contact: tenant.ContactPersonDb{
-			ContactName:  input.Contact.Name,
-			ContactEmail: input.Contact.Email,
-			ContactPhone: input.Contact.Phone,
-		},
-	}
+	model := input.Dto()
 	tenantId, err := GenerateRandomString(6)
 	if err != nil {
+		s.logger.Errorf("Failed to generate random: %s", err.Error())
 		return nil, err
 	}
 	model.TenantId = tenantId
 	data, err := s.tenantRepo.Create(model)
 	if err != nil {
+		s.logger.Errorf("Failed to create tenant: %s", err.Error())
 		return nil, err
 	}
+	go s.eventPublisher.Publish(events.TenantCreated, messages.TenantCreatedPayload{
+		Id:        data.ID.String(),
+		Name:      data.Contact.ContactName,
+		Email:     data.Contact.ContactEmail,
+		CreatedAt: data.CreatedAt,
+		TenantId:  data.TenantId,
+		Domain:    data.Domain,
+	})
 	return data, nil
 }
 

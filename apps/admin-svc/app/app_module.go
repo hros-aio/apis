@@ -6,6 +6,7 @@ import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/hros-aio/apis/libs/saga"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
@@ -14,6 +15,7 @@ func NewModule() core.Module {
 		Imports: []core.Modules{
 			factory.Register(),
 			psql.Register(&tenant.TenantDB{}),
+			saga.Register(),
 			tenants.NewModule,
 		},
 		Middlewares: []core.Middleware{

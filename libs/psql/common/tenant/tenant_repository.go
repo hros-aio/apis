@@ -31,6 +31,7 @@ func (r *Repository) Create(model any) (*TenantModel, error) {
 		Model:       base.Model{}.FromData(data.Model),
 		Name:        data.Name,
 		TenantId:    data.TenantId,
+		Domain:      data.Domain,
 		Description: data.Description,
 		Contact:     ContactPerson(data.Contact),
 	}, nil

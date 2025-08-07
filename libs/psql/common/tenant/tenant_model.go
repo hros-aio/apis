@@ -11,7 +11,8 @@ type ContactPerson struct {
 type TenantModel struct {
 	base.Model
 	TenantId    string        `json:"tenantId"`
+	Domain      string        `json:"domain"`
 	Name        string        `json:"name"`
-	Description string        ` json:"description"`
+	Description string        `json:"description"`
 	Contact     ContactPerson `json:"contact"`
 }

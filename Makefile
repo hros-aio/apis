@@ -5,3 +5,7 @@ run-admin-svc:
 .PHONY: run-setting-svc
 run-setting-svc:
 	cd apps/setting-svc && air
+
+.PHONY: run-auth-svc
+run-auth-svc:
+	cd apps/auth-svc && air

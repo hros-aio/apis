@@ -10,4 +10,5 @@ type UserModel struct {
 	Email      string `json:"email"`
 	IsVerified bool   `json:"isVerified"`
 	IsBanned   bool   `json:"isBanned"`
+	IsAdmin    bool   `json:"isAdmin"`
 }

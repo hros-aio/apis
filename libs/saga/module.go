@@ -30,6 +30,8 @@ func Register() core.Modules {
 					}
 				}),
 			},
+			Providers: []core.Providers{NewProvider},
+			Exports:   []core.Providers{NewProvider},
 		})
 	}
 }

@@ -11,6 +11,7 @@ type ContactPersonDb struct {
 type TenantDB struct {
 	sqlorm.Model `gorm:"embedded"`
 	TenantId     string          `gorm:"column:tenant_id;type:varchar(64);not null;index:idx_tenant_id,unique" json:"tenantId"`
+	Domain       string          `gorm:"column:domain;type:varchar(64);not null;index:idx_tenant_domain,unique" json:"domain"`
 	Name         string          `gorm:"column:name;type:varchar(64);not null;" json:"name"`
 	Description  string          `gorm:"column:description;type:varchar(256);not null;" json:"description"`
 	Contact      ContactPersonDb `gorm:"embedded;embeddedPrefix:contact_" json:"contact"`
