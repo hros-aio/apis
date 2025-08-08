@@ -6,6 +6,7 @@ require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/hros-aio/apis/libs/saga v0.0.1
+	github.com/tinh-tinh/auth/v2 v2.2.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
@@ -52,7 +53,6 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/redis/go-redis/v9 v9.10.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
-	github.com/tinh-tinh/auth/v2 v2.2.0 // indirect
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
 	github.com/tinh-tinh/cacher/v2 v2.3.0 // indirect
 	github.com/tinh-tinh/config/v2 v2.1.0 // indirect
@@ -72,5 +72,5 @@ require (
 replace (
 	github.com/hros-aio/apis/libs/factory => ../../libs/factory
 	github.com/hros-aio/apis/libs/psql => ../../libs/psql
-		github.com/hros-aio/apis/libs/saga => ../../libs/saga
+	github.com/hros-aio/apis/libs/saga => ../../libs/saga
 )

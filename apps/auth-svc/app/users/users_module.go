@@ -10,6 +10,7 @@ func NewModule(module core.Module) core.Module {
 		Imports: []core.Modules{
 			user.NewModule,
 		},
-		Providers: []core.Providers{NewHandler},
+		Controllers: []core.Controllers{AuthController},
+		Providers:   []core.Providers{NewHandler},
 	})
 }
