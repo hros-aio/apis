@@ -14,6 +14,7 @@ func NewController(module core.Module) core.Controller {
 
 	svc := core.Inject[AuthService](module)
 	ctrl.
+		Metadata(middleware.IsPublic()).
 		Pipe(core.BodyParser[LoginInput]{}).
 		Post("login", func(ctx core.Ctx) error {
 			contextInfo, ok := ctx.Get(middleware.APP_CONTEXT).(middleware.ContextInfo)

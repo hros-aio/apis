@@ -3,10 +3,14 @@ module github.com/hros-aio/apis/apps/auth-svc
 go 1.24.1
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/hros-aio/apis/libs/saga v0.0.1
 	github.com/tinh-tinh/auth/v2 v2.2.0
+	github.com/tinh-tinh/cacher/v2 v2.3.0
+	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/swagger/v2 v2.2.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
@@ -25,9 +29,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.21.1 // indirect
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/go-redsync/redsync/v4 v4.13.0 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
@@ -55,8 +57,6 @@ require (
 	github.com/redis/go-redis/v9 v9.10.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
-	github.com/tinh-tinh/cacher/v2 v2.3.0 // indirect
-	github.com/tinh-tinh/config/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/sqlorm/v2 v2.3.1 // indirect

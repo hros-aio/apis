@@ -82,3 +82,5 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 
 	return tokenRes, nil
 }
+
+func (s *AuthService) GetMe(ctx middleware.ContextInfo) {}

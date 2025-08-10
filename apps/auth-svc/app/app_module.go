@@ -22,6 +22,7 @@ func NewModule() core.Module {
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,
+			middleware.AuthN,
 		},
 	})
 }

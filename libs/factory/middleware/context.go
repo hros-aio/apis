@@ -14,6 +14,7 @@ type ContextInfo struct {
 	Referer   string `json:"referer"`
 	UserId    string `json:"userId"`
 	TenantID  string `json:"tenantId"`
+	Token     string `json:"token"`
 }
 
 func SetContext(ctx core.Ctx) error {
@@ -36,6 +37,7 @@ func SetContext(ctx core.Ctx) error {
 	authorization := ctx.Headers("Authorization")
 	if authorization != "" {
 		token := authorization[len("Bearer "):]
+		contextInfo.Token = token
 		claims, err := jwtSvc.Decode(token)
 		if err != nil {
 			return exception.Unauthorized("Invalid token")
