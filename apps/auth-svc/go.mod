@@ -7,6 +7,7 @@ require (
 	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/hros-aio/apis/libs/saga v0.0.1
 	github.com/tinh-tinh/auth/v2 v2.2.0
+	github.com/tinh-tinh/swagger/v2 v2.2.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
@@ -59,7 +60,6 @@ require (
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/sqlorm/v2 v2.3.1 // indirect
-	github.com/tinh-tinh/swagger/v2 v2.2.0 // indirect
 	golang.org/x/crypto v0.39.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect

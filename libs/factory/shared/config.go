@@ -1,5 +1,7 @@
 package shared
 
+import "time"
+
 type Config struct {
 	Port     int            `yaml:"port"`
 	Postgres PostgresConfig `yaml:"postgres"`
@@ -29,6 +31,7 @@ type RedisConfig struct {
 }
 
 type KafkaConfig struct {
+	Enable  bool     `yaml:"enable"`
 	Brokers []string `yaml:"brokers"`
 	Topics  []string `yaml:"topics"`
 	GroupID string   `yaml:"groupId"`
@@ -39,8 +42,10 @@ type NatsConfig struct {
 }
 
 type JwtSecret struct {
-	AccessTokenPrivateKey  string `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
-	AccessTokenPublicKey   string `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
-	RefreshTokenPrivateKey string `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
-	RefreshTokenPublicKey  string `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
+	AccessTokenPrivateKey  string        `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
+	AccessTokenPublicKey   string        `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
+	AccessTokenExpiresIn   time.Duration `mapstructure:"ACCESS_TOKEN_EXPIRES_IN"`
+	RefreshTokenPrivateKey string        `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
+	RefreshTokenPublicKey  string        `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
+	RefreshTokenExpiresIn  time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRES_IN"`
 }

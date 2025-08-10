@@ -1,7 +1,6 @@
 package user
 
 import (
-	"github.com/hros-aio/apis/libs/psql/common/base"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -27,14 +26,16 @@ func (r *Repository) Create(model any) (*UserModel, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &UserModel{
-		Model:      base.Model{}.FromData(data.Model),
-		Username:   data.Username,
-		TenantId:   data.TenantId,
-		Password:   data.Password,
-		Email:      data.Email,
-		IsVerified: data.IsVerified,
-		IsBanned:   data.IsBanned,
-		IsAdmin:    data.IsAdmin,
-	}, nil
+	return data.Dto(), nil
+}
+
+func (r *Repository) FindByEmail(email string) (*UserModel, error) {
+	data, err := r.Model.FindOne(map[string]any{
+		"email": email,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return data.Dto(), nil
 }

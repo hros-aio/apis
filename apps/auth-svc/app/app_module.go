@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/hros-aio/apis/apps/auth-svc/app/auth"
 	"github.com/hros-aio/apis/apps/auth-svc/app/users"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
@@ -17,6 +18,7 @@ func NewModule() core.Module {
 			psql.Register(&user.UserDB{}),
 			microservices.Register(),
 			users.NewModule,
+			auth.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,

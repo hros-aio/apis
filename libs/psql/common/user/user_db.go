@@ -1,6 +1,9 @@
 package user
 
-import "github.com/tinh-tinh/sqlorm/v2"
+import (
+	"github.com/hros-aio/apis/libs/psql/common/base"
+	"github.com/tinh-tinh/sqlorm/v2"
+)
 
 type UserDB struct {
 	sqlorm.Model `gorm:"embedded"`
@@ -15,4 +18,17 @@ type UserDB struct {
 
 func (UserDB) TableName() string {
 	return "users"
+}
+
+func (data UserDB) Dto() *UserModel {
+	return &UserModel{
+		Model:      base.Model{}.FromData(data.Model),
+		Username:   data.Username,
+		TenantId:   data.TenantId,
+		Password:   data.Password,
+		Email:      data.Email,
+		IsVerified: data.IsVerified,
+		IsBanned:   data.IsBanned,
+		IsAdmin:    data.IsAdmin,
+	}
 }

@@ -18,7 +18,7 @@ func NewController(module core.Module) core.Controller {
 		Post("", func(ctx core.Ctx) error {
 			contextInfo, ok := ctx.Get(middleware.APP_CONTEXT).(middleware.ContextInfo)
 			if !ok {
-				return exception.BadRequest("Cannot parse input")
+				return exception.InternalServer("Cannot parse context")
 			}
 			input, ok := ctx.Body().(*TenantCreateInput)
 			if !ok {
