@@ -3,13 +3,18 @@ package shared
 import "time"
 
 type Config struct {
-	Port     int            `yaml:"port"`
-	Postgres PostgresConfig `yaml:"postgres"`
-	Mongo    MongoConfig    `yaml:"mongo"`
-	Redis    RedisConfig    `yaml:"redis"`
-	Kafka    KafkaConfig    `yaml:"kafka"`
-	Nats     NatsConfig     `yaml:"nats"`
-	Jwt      JwtSecret
+	Port                   int            `yaml:"port"`
+	Postgres               PostgresConfig `yaml:"postgres"`
+	Mongo                  MongoConfig    `yaml:"mongo"`
+	Redis                  RedisConfig    `yaml:"redis"`
+	Kafka                  KafkaConfig    `yaml:"kafka"`
+	Nats                   NatsConfig     `yaml:"nats"`
+	AccessTokenPrivateKey  string         `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
+	AccessTokenPublicKey   string         `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
+	AccessTokenExpiresIn   time.Duration  `mapstructure:"ACCESS_TOKEN_EXPIRES_IN"`
+	RefreshTokenPrivateKey string         `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
+	RefreshTokenPublicKey  string         `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
+	RefreshTokenExpiresIn  time.Duration  `mapstructure:"REFRESH_TOKEN_EXPIRES_IN"`
 }
 
 type PostgresConfig struct {

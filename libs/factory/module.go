@@ -18,7 +18,7 @@ func Register() core.Modules {
 	return func(module core.Module) core.Module {
 		return module.New(core.NewModuleOptions{
 			Imports: []core.Modules{
-				config.ForRoot[shared.Config]("./config/configuration.yaml"),
+				config.ForRoot[shared.Config]("./config/configuration.yaml", "./config/.env"),
 				queue.ForRootFactory(func(ref core.RefProvider) *queue.Options {
 					cfg := config.Inject[shared.Config](ref)
 					return &queue.Options{
@@ -45,8 +45,13 @@ func Register() core.Modules {
 						Store: store,
 					}
 				}),
-				auth.Register(auth.JwtOptions{
-					Alg: jwt.SigningMethodRS256,
+				auth.RegisterFactory(func(ref core.RefProvider) auth.JwtOptions {
+					cfg := config.Inject[shared.Config](ref)
+					return auth.JwtOptions{
+						Alg:        jwt.SigningMethodRS256,
+						PrivateKey: cfg.AccessTokenPrivateKey,
+						PublicKey:  cfg.AccessTokenPublicKey,
+					}
 				}),
 				fetch.Register(&fetch.Config{
 					Timeout: 5000,

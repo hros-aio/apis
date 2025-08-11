@@ -6,6 +6,12 @@ import (
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
+type UserContext struct {
+	ID       string `json:"id"`
+	Email    string `json:"email"`
+	TenantId string `json:"tenantId"`
+}
+
 const IS_PUBLIC = "IsPublicKey"
 
 func IsPublic() *core.Metadata {
@@ -13,17 +19,20 @@ func IsPublic() *core.Metadata {
 }
 
 func AuthN(ctx core.Ctx) error {
+	// Check metadata
 	isPublic, ok := ctx.GetMetadata(IS_PUBLIC).(bool)
 	if ok && isPublic {
 		return ctx.Next()
 	}
 
+	// Inject providers
 	jwtSvc, ok := ctx.Ref(auth.JWT_TOKEN).(auth.Jwt)
 	if !ok {
 		return exception.InternalServer("JWT service not found")
 	}
 
-	contextInfo := ctx.Get(APP_CONTEXT).(ContextInfo)
+	// Get context
+	contextInfo, ok := ctx.Get(APP_CONTEXT).(ContextInfo)
 	if !ok {
 		return exception.InternalServer("Not context")
 	}
@@ -31,6 +40,7 @@ func AuthN(ctx core.Ctx) error {
 		return exception.Unauthorized("Empty token")
 	}
 
+	// Verify token
 	_, err := jwtSvc.Verify(contextInfo.Token)
 	if err != nil {
 		return exception.Unauthorized(err.Error())

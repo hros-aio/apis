@@ -32,5 +32,15 @@ func NewController(module core.Module) core.Controller {
 			return ctx.JSON(data)
 		})
 
+	ctrl.
+		Metadata(swagger.ApiSecurity("bearerAuth")).
+		Get("me", func(ctx core.Ctx) error {
+			contextInfo, ok := ctx.Get(middleware.APP_CONTEXT).(middleware.ContextInfo)
+			if !ok {
+				return exception.InternalServer("Cannot parse context")
+			}
+			return ctx.JSON(contextInfo)
+		})
+
 	return ctrl
 }

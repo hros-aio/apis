@@ -3,7 +3,7 @@ module github.com/hros-aio/apis/apps/auth-svc
 go 1.24.1
 
 require (
-	github.com/golang-jwt/jwt/v5 v5.2.2
+	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/psql v1.0.0
@@ -26,7 +26,7 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/getkin/kin-openapi v0.132.0 // indirect
-	github.com/go-openapi/jsonpointer v0.21.1 // indirect
+	github.com/go-openapi/jsonpointer v0.21.2 // indirect
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/go-redsync/redsync/v4 v4.13.0 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
@@ -54,7 +54,7 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.10.0 // indirect
+	github.com/redis/go-redis/v9 v9.12.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect

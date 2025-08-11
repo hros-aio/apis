@@ -11,7 +11,13 @@ func DefaultSwagger(prefix string) *swagger.SpecBuilder {
 	return swagger.NewSpecBuilder().
 		SetTitle(name + " Doc").
 		SetDescription(name + " API documentation").
-		SetVersion("v1.0.0")
+		SetVersion("v1.0.0").
+		AddSecurity(&swagger.SecuritySchemeObject{
+			Type:         "http",
+			Scheme:       "Bearer",
+			BearerFormat: "JWT",
+			Name:         "bearerAuth",
+		})
 }
 
 func formatNamePrefix(input string) string {

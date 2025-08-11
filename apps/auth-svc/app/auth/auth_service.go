@@ -17,20 +17,20 @@ type AuthService struct {
 	userRepo  *user.Repository
 	jwtSvc    auth.Jwt
 	config    *shared.Config
-	userCache cacher.Schema[user.UserModel]
+	userCache *cacher.Schema[middleware.UserContext]
 }
 
 func NewService(module core.Module) core.Provider {
 	userRepo := module.Ref(user.REPOSITORY).(*user.Repository)
 	jwtSvc := auth.InjectJwt(module)
 	config := config.Inject[shared.Config](module)
-	userCache := cacher.Inject[user.UserModel](module)
+	userCache := cacher.Inject[middleware.UserContext](module)
 
 	return module.NewProvider(&AuthService{
 		userRepo:  userRepo,
 		jwtSvc:    jwtSvc,
 		config:    config,
-		userCache: *userCache,
+		userCache: userCache,
 	})
 }
 
@@ -55,7 +55,7 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 			"sub":      foundUser.ID.String(),
 			"tenantId": foundUser.TenantId,
 		}, auth.GenOptions{
-			Exp: s.config.Jwt.RefreshTokenExpiresIn,
+			Exp: s.config.RefreshTokenExpiresIn,
 		})
 		if err != nil {
 			return nil, err
@@ -64,7 +64,11 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 	}
 
 	sessionId := uuid.NewString()
-	err = s.userCache.Set(sessionId, *foundUser)
+	err = s.userCache.Set(sessionId, middleware.UserContext{
+		ID:       foundUser.ID.String(),
+		Email:    foundUser.Email,
+		TenantId: foundUser.TenantId,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +77,7 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 		"sub":      sessionId,
 		"tenantId": foundUser.TenantId,
 	}, auth.GenOptions{
-		Exp: s.config.Jwt.AccessTokenExpiresIn,
+		Exp: s.config.AccessTokenExpiresIn,
 	})
 	if err != nil {
 		return nil, err
