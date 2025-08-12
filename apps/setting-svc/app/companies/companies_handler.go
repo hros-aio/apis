@@ -1,12 +1,10 @@
-package users
+package companies
 
 import (
-	"strings"
-
-	"github.com/hros-aio/apis/libs/psql/common/user"
+	"github.com/hros-aio/apis/libs/psql/common/company"
+	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/hros-aio/apis/libs/saga/events"
 	"github.com/hros-aio/apis/libs/saga/messages"
-	"github.com/tinh-tinh/auth/v2"
 	"github.com/tinh-tinh/tinhtinh/microservices"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
@@ -14,8 +12,7 @@ import (
 
 func NewHandler(module core.Module) core.Provider {
 	handler := microservices.NewHandler(module, core.ProviderOptions{})
-
-	repo := module.Ref(user.REPOSITORY).(*user.Repository)
+	repo := module.Ref(company.REPOSITORY).(*company.Repository)
 	logger := logger.InjectLog(module)
 
 	handler.OnEvent(events.TenantCreated, func(ctx microservices.Ctx) error {
@@ -26,22 +23,17 @@ func NewHandler(module core.Module) core.Provider {
 			return err
 		}
 
-		username := strings.Split(data.Contact.ContactEmail, "@")
-		model := &user.UserDB{
-			TenantId:   data.TenantId,
-			Username:   username[0],
-			Email:      data.Contact.ContactEmail,
-			Password:   auth.Hash("12345678@Tc"),
-			IsVerified: false,
-			IsBanned:   false,
-			IsAdmin:    true,
+		input := &company.CompanyDB{
+			TenantId: data.TenantId,
+			Name:     data.Name,
+			Contact:  tenant.ContactPersonDb(data.Contact),
 		}
-		createdUser, err := repo.Create(model)
+		createdCompany, err := repo.Create(input)
 		if err != nil {
 			logger.Error(err.Error())
 			return err
 		}
-		logger.Infof("Create user successfully: %v", createdUser)
+		logger.Infof("Create company successfully: %v", createdCompany)
 		return nil
 	})
 

@@ -15,9 +15,9 @@ func main() {
 	if cfg.Kafka.Enable {
 		server.ConnectMicroservice(kafka.Open(kafka.Options{
 			Options: kafka.Config{
-				Brokers: []string{"127.0.0.1:9092"},
+				Brokers: cfg.Kafka.Brokers,
 			},
-			GroupID: "admin--app",
+			GroupID: cfg.Kafka.GroupID,
 		}))
 		server.StartAllMicroservices()
 	}

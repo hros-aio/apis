@@ -1,7 +1,7 @@
 package companies
 
 import (
-	"github.com/hros-aio/apis/libs/sql/common/company"
+	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 

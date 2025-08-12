@@ -1,6 +1,6 @@
 package companies
 
-import "github.com/hros-aio/apis/libs/sql/common/tenant"
+import "github.com/hros-aio/apis/libs/psql/common/tenant"
 
 type CreateCompanyInput struct {
 	Name             string                `json:"name" example:"Terralogic Inc"`

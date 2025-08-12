@@ -48,10 +48,10 @@ func (s *TenantService) Create(ctx middleware.ContextInfo, input *TenantCreateIn
 	go s.eventPublisher.Publish(events.TenantCreated, messages.TenantCreatedPayload{
 		Id:        data.ID.String(),
 		Name:      data.Contact.ContactName,
-		Email:     data.Contact.ContactEmail,
 		CreatedAt: data.CreatedAt,
 		TenantId:  data.TenantId,
 		Domain:    data.Domain,
+		Contact:   messages.ContactPerson(data.Contact),
 	})
 	return data, nil
 }
