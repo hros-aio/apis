@@ -12,7 +12,7 @@ type Model struct {
 	ID        uuid.UUID      `json:"id"`
 	CreatedAt *time.Time     `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time     `json:"updatedAt,omitempty"`
-	DeletedAt gorm.DeletedAt `json:"deletedAt,omitempty"`
+	DeletedAt gorm.DeletedAt `json:"deletedAt,omitzero"`
 }
 
 func (Model) FromData(data sqlorm.Model) Model {

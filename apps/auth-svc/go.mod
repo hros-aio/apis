@@ -8,7 +8,7 @@ require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/hros-aio/apis/libs/saga v0.0.1
-	github.com/tinh-tinh/auth/v2 v2.2.0
+	github.com/tinh-tinh/auth/v2 v2.2.1
 	github.com/tinh-tinh/cacher/v2 v2.3.0
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/swagger/v2 v2.2.0
@@ -54,7 +54,7 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.12.0 // indirect
+	github.com/redis/go-redis/v9 v9.12.1 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect

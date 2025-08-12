@@ -34,7 +34,7 @@ func NewService(module core.Module) core.Provider {
 	})
 }
 
-func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*TokenResponse, error) {
+func (s *AuthService) Login(ctx *middleware.ContextInfo, input *LoginInput) (*TokenResponse, error) {
 	foundUser, err := s.userRepo.FindByEmail(input.Email)
 	if err != nil {
 		return nil, err
@@ -49,13 +49,45 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 		return nil, exception.BadRequest("Password incorrect")
 	}
 
+	return s.generateToken(foundUser, input.RememberMe)
+}
+
+func (s *AuthService) GetMe(ctx *middleware.ContextInfo) (*user.UserModel, error) {
+	if ctx.User == nil {
+		return nil, exception.NotFound("missing context")
+	}
+	return s.userRepo.FindByID(ctx.User.ID)
+}
+
+func (s *AuthService) RefreshAccessToken(ctx *middleware.ContextInfo, input *RefreshAccessTokenInput) (*TokenResponse, error) {
+	claims, err := s.jwtSvc.Verify(input.RefreshToken, auth.VerifyOptions{
+		PublicKey: s.config.RefreshTokenPublicKey,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	userId, ok := claims["sub"].(string)
+	if !ok {
+		return nil, exception.BadRequest("Token missing sub field")
+	}
+	user, err := s.userRepo.FindByID(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.generateToken(user, true)
+}
+
+func (s *AuthService) generateToken(foundUser *user.UserModel, isRefreshToken bool) (*TokenResponse, error) {
 	tokenRes := &TokenResponse{}
-	if input.RememberMe {
+	if isRefreshToken {
 		refreshToken, err := s.jwtSvc.Generate(jwt.MapClaims{
 			"sub":      foundUser.ID.String(),
 			"tenantId": foundUser.TenantId,
 		}, auth.GenOptions{
-			Exp: s.config.RefreshTokenExpiresIn,
+			PrivateKey: s.config.RefreshTokenPrivateKey,
+			Exp:        s.config.RefreshTokenExpiresIn,
 		})
 		if err != nil {
 			return nil, err
@@ -64,10 +96,12 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 	}
 
 	sessionId := uuid.NewString()
-	err = s.userCache.Set(sessionId, middleware.UserContext{
+	err := s.userCache.Set(sessionId, middleware.UserContext{
 		ID:       foundUser.ID.String(),
 		Email:    foundUser.Email,
 		TenantId: foundUser.TenantId,
+	}, cacher.StoreOptions{
+		Ttl: s.config.AccessTokenExpiresIn,
 	})
 	if err != nil {
 		return nil, err
@@ -86,5 +120,3 @@ func (s *AuthService) Login(ctx middleware.ContextInfo, input *LoginInput) (*Tok
 
 	return tokenRes, nil
 }
-
-func (s *AuthService) GetMe(ctx middleware.ContextInfo) {}

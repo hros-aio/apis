@@ -39,3 +39,12 @@ func (r *Repository) FindByEmail(email string) (*UserModel, error) {
 
 	return data.Dto(), nil
 }
+
+func (r *Repository) FindByID(id string) (*UserModel, error) {
+	data, err := r.Model.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+	data.Password = ""
+	return data.Dto(), nil
+}

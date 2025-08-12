@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/tinh-tinh/auth/v2"
+	"github.com/tinh-tinh/cacher/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -32,8 +33,8 @@ func AuthN(ctx core.Ctx) error {
 	}
 
 	// Get context
-	contextInfo, ok := ctx.Get(APP_CONTEXT).(ContextInfo)
-	if !ok {
+	contextInfo := core.Execution[ContextInfo](APP_CONTEXT, ctx)
+	if contextInfo == nil {
 		return exception.InternalServer("Not context")
 	}
 	if contextInfo.Token == "" {
@@ -45,5 +46,18 @@ func AuthN(ctx core.Ctx) error {
 	if err != nil {
 		return exception.Unauthorized(err.Error())
 	}
+
+	cacheManger, ok := ctx.Ref(cacher.CACHE_MANAGER).(*cacher.Config)
+	if !ok || cacheManger == nil {
+		return exception.Unauthorized("session invalid")
+	}
+
+	userCacher := cacher.NewSchema[UserContext](*cacheManger)
+	user, err := userCacher.Get(contextInfo.SessionId)
+	if err != nil {
+		return exception.Unauthorized(err.Error())
+	}
+
+	contextInfo.User = &user
 	return ctx.Next()
 }

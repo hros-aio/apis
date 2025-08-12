@@ -15,6 +15,7 @@ type ContextInfo struct {
 	SessionId string `json:"sessionId"`
 	TenantID  string `json:"tenantId"`
 	Token     string `json:"token"`
+	User      *UserContext
 }
 
 func SetContext(ctx core.Ctx) error {
@@ -51,6 +52,6 @@ func SetContext(ctx core.Ctx) error {
 		}
 	}
 
-	ctx.Set(APP_CONTEXT, contextInfo)
+	ctx.Set(APP_CONTEXT, &contextInfo)
 	return ctx.Next()
 }
