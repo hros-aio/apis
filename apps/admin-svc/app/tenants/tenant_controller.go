@@ -3,7 +3,6 @@ package tenants
 import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/tinh-tinh/swagger/v2"
-	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
@@ -16,15 +15,10 @@ func NewController(module core.Module) core.Controller {
 	ctrl.
 		Pipe(core.BodyParser[TenantCreateInput]{}).
 		Post("", func(ctx core.Ctx) error {
-			contextInfo, ok := ctx.Get(middleware.APP_CONTEXT).(middleware.ContextInfo)
-			if !ok {
-				return exception.InternalServer("Cannot parse context")
-			}
-			input, ok := ctx.Body().(*TenantCreateInput)
-			if !ok {
-				return exception.BadRequest("Cannot parse input")
-			}
-			data, err := svc.Create(contextInfo, input)
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+			input := core.Execution[TenantCreateInput](core.InBody, ctx)
+
+			data, err := svc.Create(*contextInfo, input)
 			if err != nil {
 				return err
 			}
@@ -32,11 +26,8 @@ func NewController(module core.Module) core.Controller {
 		})
 
 	ctrl.Get("", func(ctx core.Ctx) error {
-		contextInfo, ok := ctx.Get(middleware.APP_CONTEXT).(middleware.ContextInfo)
-		if !ok {
-			return exception.BadRequest("Cannot parse input")
-		}
-		data, err := svc.List(contextInfo)
+		contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+		data, err := svc.List(*contextInfo)
 		if err != nil {
 			return err
 		}

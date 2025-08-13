@@ -39,7 +39,7 @@ type KafkaConfig struct {
 	Enable  bool     `yaml:"enable"`
 	Brokers []string `yaml:"brokers"`
 	Topics  []string `yaml:"topics"`
-	GroupID string   `yaml:"groupId"`
+	GroupID string   `yaml:"group_id"`
 }
 
 type NatsConfig struct {
