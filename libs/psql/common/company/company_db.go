@@ -21,7 +21,7 @@ func (CompanyDB) TableName() string {
 	return "companies"
 }
 
-func (data *CompanyDB) Dto() *CompanyModel {
+func (data CompanyDB) Dto() *CompanyModel {
 	return &CompanyModel{
 		Model:            base.Model(data.Model),
 		TenantId:         data.TenantId,

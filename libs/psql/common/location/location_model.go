@@ -1,10 +1,13 @@
 package location
 
 import (
+	"reflect"
+
 	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/psql/common/base"
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/tinh-tinh/sqlorm/v2"
 )
 
 type AddressInfo struct {
@@ -25,4 +28,21 @@ type LocationModel struct {
 	Name      string                `json:"name"`
 	Contact   tenant.ContactPerson  `json:"contact"`
 	MapUrl    string                `json:"mapUrl"`
+}
+
+func (model LocationModel) DataMapper() *LocationDB {
+	data := &LocationDB{
+		TenantId:      model.TenantId,
+		Name:          model.Name,
+		AddressInfoDB: AddressInfoDB(model.AddressInfo),
+		CompanyID:     model.CompanyID,
+		Contact:       tenant.ContactPersonDb(model.Contact),
+		MapUrl:        model.MapUrl,
+	}
+
+	if !reflect.ValueOf(model.Model).IsZero() {
+		data.Model = sqlorm.Model(model.Model)
+	}
+
+	return data
 }

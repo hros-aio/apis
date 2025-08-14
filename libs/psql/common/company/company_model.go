@@ -19,7 +19,7 @@ type CompanyModel struct {
 	SecondaryContact tenant.ContactPerson `json:"secondaryContact"`
 }
 
-func (model *CompanyModel) DataMapper() *CompanyDB {
+func (model CompanyModel) DataMapper() *CompanyDB {
 	data := &CompanyDB{
 		TenantId:         model.TenantId,
 		Name:             model.Name,

@@ -14,6 +14,7 @@ type ContextInfo struct {
 	Referer   string `json:"referer"`
 	SessionId string `json:"sessionId"`
 	TenantID  string `json:"tenantId"`
+	CompanyID string `json:"companyId"`
 	Token     string `json:"token"`
 	User      *UserContext
 }
@@ -47,9 +48,17 @@ func SetContext(ctx core.Ctx) error {
 		if tenantId, ok := claims["tenantId"].(string); ok {
 			contextInfo.TenantID = tenantId
 		}
+		if companyID, ok := claims["companyId"].(string); ok {
+			contextInfo.CompanyID = companyID
+		}
 		if sessionId, ok := claims["sub"].(string); ok {
 			contextInfo.SessionId = sessionId
 		}
+	}
+
+	// get from query
+	if ctx.Query("companyId") != "" {
+		contextInfo.CompanyID = ctx.Query("companyId")
 	}
 
 	ctx.Set(APP_CONTEXT, &contextInfo)

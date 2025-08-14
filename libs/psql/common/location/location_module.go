@@ -10,5 +10,7 @@ func NewModule(module core.Module) core.Module {
 		Imports: []core.Modules{
 			sqlorm.ForFeature(sqlorm.NewRepo(LocationDB{})),
 		},
+		Providers: []core.Providers{NewRepository},
+		Exports:   []core.Providers{NewRepository},
 	})
 }
