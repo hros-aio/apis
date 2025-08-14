@@ -1,8 +1,6 @@
 package company
 
 import (
-	"github.com/hros-aio/apis/libs/psql/common/base"
-	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -29,14 +27,28 @@ func (r *Repository) Create(model any) (*CompanyModel, error) {
 		return nil, err
 	}
 
-	return &CompanyModel{
-		Model:            base.Model{}.FromData(data.Model),
-		TenantId:         data.TenantId,
-		Name:             data.Name,
-		Industry:         data.Industry,
-		Size:             data.Size,
-		Logo:             data.Logo,
-		Contact:          tenant.ContactPerson(data.Contact),
-		SecondaryContact: tenant.ContactPerson(data.SecondaryContact),
-	}, nil
+	return data.Dto(), nil
+}
+
+func (r *Repository) FindAll(where sqlorm.Query, options sqlorm.FindOptions) ([]*CompanyModel, int64, error) {
+	data, total, err := r.Model.FindAllAndCount(where, options)
+	if err != nil {
+		return nil, 0, err
+	}
+	models := []*CompanyModel{}
+	for _, val := range data {
+		models = append(models, val.Dto())
+	}
+
+	return models, total, nil
+}
+
+func (r *Repository) UpdateByID(id string, model *CompanyModel) (*CompanyModel, error) {
+	input := model.DataMapper()
+	data, err := r.Model.UpdateByID(id, input)
+	if err != nil {
+		return nil, err
+	}
+
+	return data.Dto(), nil
 }

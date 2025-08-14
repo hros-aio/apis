@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/hros-aio/apis/apps/setting-svc/app/companies"
+	"github.com/hros-aio/apis/apps/setting-svc/app/locations"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql"
@@ -18,9 +19,11 @@ func NewModule() core.Module {
 			psql.Register(&company.CompanyDB{}, &location.LocationDB{}),
 			microservices.Register(),
 			companies.NewModule,
+			locations.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,
+			middleware.AuthN,
 		},
 	})
 }

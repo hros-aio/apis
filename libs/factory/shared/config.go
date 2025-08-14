@@ -54,3 +54,7 @@ type JwtSecret struct {
 	RefreshTokenPublicKey  string        `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
 	RefreshTokenExpiresIn  time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRES_IN"`
 }
+
+type ParamID struct {
+	ID string `path:"id" example:"6cdad833-ba6d-49e3-889c-da23b764bb21"`
+}

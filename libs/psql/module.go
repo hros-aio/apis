@@ -9,6 +9,8 @@ import (
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func Register(models ...any) core.Modules {
@@ -34,6 +36,9 @@ func Register(models ...any) core.Modules {
 						},
 						Sync:   isSync,
 						Models: models,
+						Options: []gorm.Option{
+							&gorm.Config{Logger: logger.Default.LogMode(logger.Info)},
+						},
 					}
 				}),
 			},
