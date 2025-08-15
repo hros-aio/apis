@@ -1,6 +1,7 @@
 package locations
 
 import (
+	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/location"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
@@ -19,4 +20,13 @@ func NewService(module core.Module) core.Provider {
 		locationRepo: locationRepo,
 		logger:       logger,
 	})
+}
+
+func (s *LocationService) Create(ctx middleware.ContextInfo, model *location.LocationModel) (*location.LocationModel, error) {
+	createdLocation, err := s.locationRepo.Create(model)
+	if err != nil {
+		s.logger.Error(err.Error())
+		return nil, err
+	}
+	return createdLocation, nil
 }

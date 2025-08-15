@@ -22,7 +22,7 @@ func NewRepository(module core.Module) core.Provider {
 	})
 }
 
-func (r *Repository) Create(model LocationModel) (*LocationModel, error) {
+func (r *Repository) Create(model *LocationModel) (*LocationModel, error) {
 	input := model.DataMapper()
 	data, err := r.Model.Create(input)
 	if err != nil {
