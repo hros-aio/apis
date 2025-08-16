@@ -8,7 +8,7 @@ import (
 	"github.com/hros-aio/apis/libs/psql"
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/hros-aio/apis/libs/psql/common/location"
-	"github.com/tinh-tinh/tinhtinh/microservices"
+	"github.com/hros-aio/apis/libs/saga"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
@@ -17,7 +17,7 @@ func NewModule() core.Module {
 		Imports: []core.Modules{
 			factory.Register(),
 			psql.Register(&company.CompanyDB{}, &location.LocationDB{}),
-			microservices.Register(),
+			saga.Register(),
 			companies.NewModule,
 			locations.NewModule,
 		},

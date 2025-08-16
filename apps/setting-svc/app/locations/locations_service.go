@@ -5,23 +5,27 @@ import (
 
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/location"
+	"github.com/hros-aio/apis/libs/saga"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
 
 type LocationService struct {
-	locationRepo *location.Repository
-	logger       *logger.Logger
+	locationRepo   *location.Repository
+	eventPublisher *saga.EventPulisher
+	logger         *logger.Logger
 }
 
 func NewService(module core.Module) core.Provider {
 	locationRepo := module.Ref(location.REPOSITORY).(*location.Repository)
 	logger := logger.InjectLog(module)
+	eventPublisher := module.Ref(saga.EVENT_PUBLISHER).(*saga.EventPulisher)
 
 	return module.NewProvider(&LocationService{
-		locationRepo: locationRepo,
-		logger:       logger,
+		locationRepo:   locationRepo,
+		logger:         logger,
+		eventPublisher: eventPublisher,
 	})
 }
 

@@ -3,6 +3,7 @@ module github.com/hros-aio/apis/libs/saga
 go 1.24.1
 
 require (
+	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
