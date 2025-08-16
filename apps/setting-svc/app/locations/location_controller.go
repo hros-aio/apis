@@ -16,7 +16,6 @@ func NewController(module core.Module) core.Controller {
 	ctrl.Pipe(
 		core.QueryParser[shared.QueryCompany]{},
 		core.BodyParser[CreateLocationInput]{},
-		core.PathParser[shared.ParamID]{},
 	).
 		Post("", func(ctx core.Ctx) error {
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
@@ -29,6 +28,68 @@ func NewController(module core.Module) core.Controller {
 			}
 			return ctx.JSON(core.Map{
 				"data": data,
+			})
+		})
+
+	ctrl.
+		Use(middleware.Pagination).
+		Get("", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+			queryParams := core.Execution[middleware.Paginate](middleware.PAGINATE, ctx)
+			data, total, err := svc.List(*contextInfo, *queryParams)
+			if err != nil {
+				return err
+			}
+			return ctx.JSON(core.Map{
+				"data":  data,
+				"total": total,
+			})
+		})
+
+	ctrl.
+		Pipe(core.PathParser[shared.ParamID]{}).
+		Get("{id}", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+
+			data, err := svc.GetByID(*contextInfo, ctx.Path("id"))
+			if err != nil {
+				return err
+			}
+			return ctx.JSON(core.Map{
+				"data": data,
+			})
+		})
+
+	ctrl.
+		Pipe(
+			core.PathParser[shared.ParamID]{},
+			core.BodyParser[UpdateLocationInput]{},
+		).
+		Put("{id}", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+			input := core.Execution[UpdateLocationInput](core.InBody, ctx)
+
+			model := input.Dto()
+			data, err := svc.UpdateByID(*contextInfo, ctx.Path("id"), model)
+			if err != nil {
+				return err
+			}
+			return ctx.JSON(core.Map{
+				"data": data,
+			})
+		})
+
+	ctrl.
+		Pipe(core.PathParser[shared.ParamID]{}).
+		Delete("{id}", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+
+			err := svc.DeleteById(*contextInfo, ctx.Path("id"))
+			if err != nil {
+				return err
+			}
+			return ctx.JSON(core.Map{
+				"status": true,
 			})
 		})
 

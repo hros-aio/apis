@@ -1,11 +1,15 @@
 .PHONY: run-admin-svc
 run-admin-svc:
-	cd apps/admin-svc && air
+	cd apps/admin-svc && go run main.go
 
 .PHONY: run-setting-svc
 run-setting-svc:
-	cd apps/setting-svc && air
+	cd apps/setting-svc && go run main.go
 
 .PHONY: run-auth-svc
 run-auth-svc:
-	cd apps/auth-svc && air
+	cd apps/auth-svc && go run main.go
+
+.PHONY: run-orchestrator-svc
+run-orchestrator-svc:
+	cd apps/orchestrator-svc && go run main.go
