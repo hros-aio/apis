@@ -1,12 +1,15 @@
-
 package app
 
-import "github.com/tinh-tinh/tinhtinh/v2/core"
+import (
+	"github.com/hros-aio/apis/libs/factory"
+	"github.com/tinh-tinh/tinhtinh/v2/core"
+)
 
 func NewModule() core.Module {
 	appModule := core.NewModule(core.NewModuleOptions{
-		Controllers: []core.Controllers{NewController},
-		Providers:   []core.Providers{NewService},
+		Imports: []core.Modules{
+			factory.Register(),
+		},
 	})
 
 	return appModule
