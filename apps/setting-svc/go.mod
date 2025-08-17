@@ -3,6 +3,7 @@ module github.com/hros-aio/apis/apps/setting-svc
 go 1.24.1
 
 require (
+	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/psql v0.0.0-00010101000000-000000000000
 	github.com/hros-aio/apis/libs/saga v0.0.1
@@ -28,7 +29,6 @@ require (
 	github.com/go-redsync/redsync/v4 v4.13.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
