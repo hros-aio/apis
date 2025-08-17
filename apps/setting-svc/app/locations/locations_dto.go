@@ -5,6 +5,7 @@ import (
 
 	"github.com/hros-aio/apis/libs/psql/common/location"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/hros-aio/apis/libs/saga/messages"
 )
 
 type CreateLocationInput struct {
@@ -96,4 +97,23 @@ func (data UpdateLocationInput) Dto() *location.LocationModel {
 	}
 
 	return model
+}
+
+func ToCreatedMessage(data *location.LocationModel) messages.LocationCreatedPayload {
+	return messages.LocationCreatedPayload{
+		ID:            data.ID.String(),
+		TenantID:      data.TenantId,
+		CompanyID:     data.CompanyID.String(),
+		AddressInfo:   messages.AddressInfo(data.AddressInfo),
+		Name:          data.Name,
+		MapUrl:        data.MapUrl,
+		IsHeadquarter: data.IsHeadquarter,
+	}
+}
+
+func ToUpdatedMessage(oldData *location.LocationModel, data *location.LocationModel) messages.LocationUpdatedPayload {
+	return messages.LocationUpdatedPayload{
+		PreviouseData: ToCreatedMessage(oldData),
+		Data:          ToCreatedMessage(data),
+	}
 }

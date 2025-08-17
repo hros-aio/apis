@@ -22,6 +22,7 @@ type LocationSchema struct {
 	CompanyID           string            `bson:"companyId" json:"companyId"`
 	Name                string            `bson:"name" json:"name"`
 	MapUrl              string            `bson:"mapUrl" json:"mapUrl"`
+	IsHeadquarter       bool              `bson:"isHeadquarter" json:"isHeadquarter"`
 }
 
 func (LocationSchema) CollectionName() string {
@@ -30,13 +31,14 @@ func (LocationSchema) CollectionName() string {
 
 func (data LocationSchema) Dto() *LocationModel {
 	model := &LocationModel{
-		Model:       base.Model(data.BaseSchema),
-		AddressInfo: AddressInfo(data.AddressInfo),
-		SyncID:      data.SyncID,
-		TenantID:    data.TenantID,
-		CompanyID:   data.CompanyID,
-		Name:        data.Name,
-		MapUrl:      data.MapUrl,
+		Model:         base.Model(data.BaseSchema),
+		AddressInfo:   AddressInfo(data.AddressInfo),
+		SyncID:        data.SyncID,
+		TenantID:      data.TenantID,
+		CompanyID:     data.CompanyID,
+		Name:          data.Name,
+		MapUrl:        data.MapUrl,
+		IsHeadquarter: data.IsHeadquarter,
 	}
 
 	return model

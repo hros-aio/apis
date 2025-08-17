@@ -26,6 +26,7 @@ type LocationDB struct {
 	Name          string                 `gorm:"column:name;type:varchar(64);not null;" json:"name"`
 	Contact       tenant.ContactPersonDb `gorm:"embedded;embeddedPrefix:contact_" json:"contact"`
 	MapUrl        string                 `gorm:"column:map_url" json:"mapUrl"`
+	IsHeadquarter bool                   `gorm:"is_headquarter;default:false" json:"isHeadquarter"`
 }
 
 func (LocationDB) TableName() string {
@@ -34,13 +35,14 @@ func (LocationDB) TableName() string {
 
 func (data LocationDB) Dto() *LocationModel {
 	model := &LocationModel{
-		Model:       base.Model(data.Model),
-		AddressInfo: AddressInfo(data.AddressInfoDB),
-		TenantId:    data.TenantId,
-		CompanyID:   data.CompanyID,
-		Name:        data.Name,
-		Contact:     tenant.ContactPerson(data.Contact),
-		MapUrl:      data.MapUrl,
+		Model:         base.Model(data.Model),
+		AddressInfo:   AddressInfo(data.AddressInfoDB),
+		TenantId:      data.TenantId,
+		CompanyID:     data.CompanyID,
+		Name:          data.Name,
+		Contact:       tenant.ContactPerson(data.Contact),
+		MapUrl:        data.MapUrl,
+		IsHeadquarter: data.IsHeadquarter,
 	}
 
 	if data.Company != nil {

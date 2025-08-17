@@ -6,6 +6,8 @@ import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/location"
 	"github.com/hros-aio/apis/libs/saga"
+	"github.com/hros-aio/apis/libs/saga/events"
+	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
@@ -41,6 +43,8 @@ func (s *LocationService) Create(ctx middleware.ContextInfo, model *location.Loc
 		s.logger.Error(err.Error())
 		return nil, err
 	}
+
+	go s.eventPublisher.Publish(events.LocationCreated, ToCreatedMessage(createdLocation))
 	return createdLocation, nil
 }
 
@@ -77,11 +81,17 @@ func (s *LocationService) GetByID(ctx middleware.ContextInfo, id string) (*locat
 }
 
 func (s *LocationService) UpdateByID(ctx middleware.ContextInfo, id string, model *location.LocationModel) (*location.LocationModel, error) {
+	foundLocation, err := s.locationRepo.FindByID(id)
+	if err != nil {
+		s.logger.Error(err.Error())
+		return nil, err
+	}
 	updatedLocation, err := s.locationRepo.UpdateByID(id, model)
 	if err != nil {
 		s.logger.Error(err.Error())
 		return nil, err
 	}
+	go s.eventPublisher.Publish(events.LocationUpdated, ToUpdatedMessage(foundLocation, updatedLocation))
 	return updatedLocation, nil
 }
 
@@ -91,5 +101,11 @@ func (s *LocationService) DeleteById(ctx middleware.ContextInfo, id string) erro
 		s.logger.Error(err.Error())
 		return err
 	}
+
+	go s.eventPublisher.Publish(events.LocationDeleted, messages.LocationDeletedPayload{
+		Id:        id,
+		TenantID:  ctx.TenantID,
+		CompanyID: ctx.CompanyID.String(),
+	})
 	return nil
 }

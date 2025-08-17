@@ -22,12 +22,13 @@ type AddressInfo struct {
 type LocationModel struct {
 	base.Model
 	AddressInfo
-	TenantId  string                `json:"tenantId"`
-	CompanyID uuid.UUID             `json:"companyId"`
-	Company   *company.CompanyModel `json:"company,omitempty"`
-	Name      string                `json:"name"`
-	Contact   tenant.ContactPerson  `json:"contact"`
-	MapUrl    string                `json:"mapUrl"`
+	TenantId      string                `json:"tenantId"`
+	CompanyID     uuid.UUID             `json:"companyId"`
+	Company       *company.CompanyModel `json:"company,omitempty"`
+	Name          string                `json:"name"`
+	Contact       tenant.ContactPerson  `json:"contact"`
+	MapUrl        string                `json:"mapUrl"`
+	IsHeadquarter bool                  `json:"isHeadquarter"`
 }
 
 func (model LocationModel) DataMapper() *LocationDB {
@@ -38,6 +39,7 @@ func (model LocationModel) DataMapper() *LocationDB {
 		CompanyID:     model.CompanyID,
 		Contact:       tenant.ContactPersonDb(model.Contact),
 		MapUrl:        model.MapUrl,
+		IsHeadquarter: model.IsHeadquarter,
 	}
 
 	if !reflect.ValueOf(model.Model).IsZero() {

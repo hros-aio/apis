@@ -14,20 +14,23 @@ type AddressInfo struct {
 type LocationModel struct {
 	base.Model
 	AddressInfo
-	Name      string `json:"name"`
-	TenantID  string `json:"tenantId"`
-	CompanyID string `json:"companyId"`
-	SyncID    string `json:"syncId"`
-	MapUrl    string `json:"mapUrl"`
+	Name          string `json:"name"`
+	TenantID      string `json:"tenantId"`
+	CompanyID     string `json:"companyId"`
+	SyncID        string `json:"syncId"`
+	MapUrl        string `json:"mapUrl"`
+	IsHeadquarter bool   `json:"isHeadquarter"`
 }
 
 func (model LocationModel) DataMapper() *LocationSchema {
 	data := &LocationSchema{
-		AddressInfo: AddressInfoSchema(model.AddressInfo),
-		TenantID:    model.TenantID,
-		Name:        model.Name,
-		CompanyID:   model.CompanyID,
-		MapUrl:      model.MapUrl,
+		AddressInfo:   AddressInfoSchema(model.AddressInfo),
+		TenantID:      model.TenantID,
+		Name:          model.Name,
+		CompanyID:     model.CompanyID,
+		MapUrl:        model.MapUrl,
+		IsHeadquarter: model.IsHeadquarter,
+		SyncID:        model.SyncID,
 	}
 
 	return data
