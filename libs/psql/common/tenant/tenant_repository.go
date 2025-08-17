@@ -28,7 +28,7 @@ func (r *Repository) Create(model any) (*TenantModel, error) {
 		return nil, err
 	}
 	return &TenantModel{
-		Model:       base.Model{}.FromData(data.Model),
+		Model:       base.Model(data.Model),
 		Name:        data.Name,
 		TenantId:    data.TenantId,
 		Domain:      data.Domain,
@@ -45,7 +45,7 @@ func (r *Repository) List() ([]TenantModel, error) {
 	tenants := []TenantModel{}
 	for _, item := range data {
 		tenants = append(tenants, TenantModel{
-			Model:       base.Model{}.FromData(item.Model),
+			Model:       base.Model(item.Model),
 			Name:        item.Name,
 			TenantId:    item.TenantId,
 			Description: item.Description,

@@ -1,0 +1,35 @@
+package location
+
+import (
+	"github.com/tinh-tinh/mongoose/v2"
+	"github.com/tinh-tinh/tinhtinh/v2/core"
+)
+
+type Repository struct {
+	Model *mongoose.Model[LocationSchema]
+}
+
+const REPOSITORY = "LOCATION_REPOSITORY"
+
+func NewRepository(module core.Module) core.Provider {
+	model := mongoose.InjectModel[LocationSchema](module)
+	return module.NewProvider(core.ProviderOptions{
+		Name: REPOSITORY,
+		Value: &Repository{
+			Model: model,
+		},
+	})
+}
+
+func (r *Repository) Create(model *LocationModel) (*LocationModel, error) {
+	input := model.DataMapper()
+	success, err := r.Model.Create(input)
+	if err != nil {
+		return nil, err
+	}
+	data, err := r.Model.FindByID(success.InsertedID)
+	if err != nil {
+		return nil, err
+	}
+	return data.Dto(), nil
+}

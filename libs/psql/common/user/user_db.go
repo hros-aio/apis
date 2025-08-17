@@ -22,7 +22,7 @@ func (UserDB) TableName() string {
 
 func (data UserDB) Dto() *UserModel {
 	return &UserModel{
-		Model:      base.Model{}.FromData(data.Model),
+		Model:      base.Model(data.Model),
 		Username:   data.Username,
 		TenantId:   data.TenantId,
 		Password:   data.Password,
