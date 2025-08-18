@@ -12,7 +12,7 @@ require (
 	github.com/tinh-tinh/swagger/v2 v2.2.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
-	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
+	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
 )
 
 require (

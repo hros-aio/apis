@@ -81,8 +81,11 @@ github.com/tinh-tinh/queue/v2 v2.1.0 h1:mZ+3wrAKZBzCWcFO71wMs2TVRKnkL9Y8/s7OeytZ
 github.com/tinh-tinh/queue/v2 v2.1.0/go.mod h1:D/Xf6AU6DjPcXpcvIF58XtsDM0To+NAtOSrb7P/6Aaw=
 github.com/tinh-tinh/swagger/v2 v2.2.0 h1:2mQ16zz12YeMRLnkdTbaynqsvGQdthBspDEQGWvgack=
 github.com/tinh-tinh/swagger/v2 v2.2.0/go.mod h1:DPJii9L/jergKGupTq6N3Fsd2A1ncW4Q5fmLsfpUnrA=
+github.com/tinh-tinh/tinhtinh v1.4.0 h1:Z+nx5gpKJ5o2EWZuB8DFRh+PYwFgIwUeA+SaliYyK7c=
 github.com/tinh-tinh/tinhtinh/v2 v2.3.0 h1:CS4pF41JY/eGh6NIlTd7idCU20db+pbNFKxAkw/zM3c=
 github.com/tinh-tinh/tinhtinh/v2 v2.3.0/go.mod h1:4nppE7KAIswZKutI9ElMqAD9kyash7aea0Ewowsqj5g=
+github.com/tinh-tinh/tinhtinh/v2 v2.3.1 h1:9XpJTDTvRt7xR8X5n6Ee6ND1xAPU1VrV9yYpVRuh7uc=
+github.com/tinh-tinh/tinhtinh/v2 v2.3.1/go.mod h1:4nppE7KAIswZKutI9ElMqAD9kyash7aea0Ewowsqj5g=
 github.com/ugorji/go/codec v1.2.11 h1:BMaWp1Bb6fHwEtbplGBGJ498wD+LKlNSl25MjdZY4dU=
 github.com/ugorji/go/codec v1.2.11/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
 golang.org/x/crypto v0.35.0 h1:b15kiHdrGCHrP6LvwaQ3c03kgNhhiMgvlhxHQhmg2Xs=

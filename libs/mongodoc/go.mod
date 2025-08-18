@@ -6,7 +6,7 @@ require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/mongoose/v2 v2.3.0
-	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
+	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
 	go.mongodb.org/mongo-driver v1.17.4
 )
 

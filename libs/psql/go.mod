@@ -7,7 +7,7 @@ require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/sqlorm/v2 v2.3.2
-	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
+	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.1
 )

@@ -32,6 +32,8 @@ github.com/tinh-tinh/mongoose/v2 v2.3.0 h1:Qcale1SlNyaQchEC3JiWH4qJOX+TL2vK9H3WM
 github.com/tinh-tinh/mongoose/v2 v2.3.0/go.mod h1:5upLgB5RDzAdLIcesEINWRdOd0Ws0/P/AbYbnTXlT9I=
 github.com/tinh-tinh/tinhtinh/v2 v2.3.0 h1:CS4pF41JY/eGh6NIlTd7idCU20db+pbNFKxAkw/zM3c=
 github.com/tinh-tinh/tinhtinh/v2 v2.3.0/go.mod h1:4nppE7KAIswZKutI9ElMqAD9kyash7aea0Ewowsqj5g=
+github.com/tinh-tinh/tinhtinh/v2 v2.3.1 h1:9XpJTDTvRt7xR8X5n6Ee6ND1xAPU1VrV9yYpVRuh7uc=
+github.com/tinh-tinh/tinhtinh/v2 v2.3.1/go.mod h1:4nppE7KAIswZKutI9ElMqAD9kyash7aea0Ewowsqj5g=
 github.com/xdg-go/pbkdf2 v1.0.0 h1:Su7DPu48wXMwC3bs7MCNG+z4FhcyEuz5dlvchbq0B0c=
 github.com/xdg-go/pbkdf2 v1.0.0/go.mod h1:jrpuAogTd400dnrH08LKmI/xc1MbPOebTwRqcT5RDeI=
 github.com/xdg-go/scram v1.1.2 h1:FHX5I5B4i4hKRVRBCFRxq1iQRej7WO3hhBuJf+UUySY=
