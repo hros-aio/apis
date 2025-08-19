@@ -52,3 +52,25 @@ func (s *WorkScheduleService) List(ctx middleware.ContextInfo, queryParams middl
 	}
 	return models, nil
 }
+
+func (s *WorkScheduleService) Update(ctx middleware.ContextInfo, id string, model *WorkScheduleModel) error {
+	err := s.repo.UpdateByID(id, model)
+	if err != nil {
+		s.logger.Error("Failed to update work schedule", logger.Metadata{
+			"err": err.Error(),
+		})
+		return err
+	}
+	return nil
+}
+
+func (s *WorkScheduleService) Delete(ctx middleware.ContextInfo, id string) error {
+	err := s.repo.DeleteByID(id)
+	if err != nil {
+		s.logger.Error("Failed to delete work schedule", logger.Metadata{
+			"err": err.Error(),
+		})
+		return err
+	}
+	return nil
+}

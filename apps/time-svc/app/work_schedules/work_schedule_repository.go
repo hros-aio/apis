@@ -43,3 +43,20 @@ func (r *WorkScheduleRepository) FindAll(filter any, queryParams middleware.Pagi
 	}
 	return models, nil
 }
+
+func (r *WorkScheduleRepository) UpdateByID(id string, model *WorkScheduleModel) error {
+	data := model.DataMapper()
+	err := r.Model.Update(id, data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *WorkScheduleRepository) DeleteByID(id string) error {
+	err := r.Model.DeleteByID(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}

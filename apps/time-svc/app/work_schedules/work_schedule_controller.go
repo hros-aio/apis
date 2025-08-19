@@ -2,6 +2,7 @@ package works_chedules
 
 import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
+	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/swagger/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -42,13 +43,40 @@ func NewController(module core.Module) core.Controller {
 			return ctx.JSON(data)
 		})
 
-	ctrl.Put("/:id", func(ctx core.Ctx) error {
-		return ctx.JSON(nil)
-	})
+	ctrl.
+		Pipe(
+			core.PathParser[shared.ParamID]{},
+			core.BodyParser[UpdateWorkScheduleInput]{},
+		).
+		Put("/:id", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+			input := core.Execution[UpdateWorkScheduleInput](core.InBody, ctx)
 
-	ctrl.Delete("/:id", func(ctx core.Ctx) error {
-		return ctx.JSON(nil)
-	})
+			model := input.Dto()
+			err := svc.Update(*contextInfo, ctx.Path("id"), model)
+			if err != nil {
+				return err
+			}
+
+			return ctx.JSON(core.Map{
+				"status": true,
+			})
+		})
+
+	ctrl.
+		Pipe(core.PathParser[shared.ParamID]{}).
+		Delete("/:id", func(ctx core.Ctx) error {
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+
+			err := svc.Delete(*contextInfo, ctx.Path("id"))
+			if err != nil {
+				return err
+			}
+
+			return ctx.JSON(core.Map{
+				"status": true,
+			})
+		})
 
 	return ctrl
 }
