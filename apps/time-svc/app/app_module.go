@@ -2,8 +2,10 @@ package app
 
 import (
 	"time-svc/app/shared"
+	works_chedules "time-svc/app/work_schedules"
 
 	"github.com/hros-aio/apis/libs/factory"
+	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/mongodoc"
 	"github.com/tinh-tinh/tinhtinh/microservices"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
@@ -16,6 +18,11 @@ func NewModule() core.Module {
 			mongodoc.Register(),
 			microservices.Register(),
 			shared.NewModule,
+			works_chedules.NewModule,
+		},
+		Middlewares: []core.Middleware{
+			middleware.SetContext,
+			middleware.AuthN,
 		},
 	})
 

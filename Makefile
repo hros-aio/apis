@@ -13,3 +13,7 @@ run-auth-svc:
 .PHONY: run-orchestrator-svc
 run-orchestrator-svc:
 	cd apps/orchestrator-svc && go run main.go
+
+.PHONY: run-time-svc
+run-time-svc:
+	cd apps/time-svc && go run main.go
