@@ -11,7 +11,7 @@ func NewModule(module core.Module) core.Module {
 			mongoose.ForFeature(mongoose.NewModel[WorkScheduleSchema]()),
 		},
 		Controllers: []core.Controllers{NewController},
-		Providers:   []core.Providers{NewRepository, NewService},
+		Providers:   []core.Providers{NewRepository, NewService, InternalHandler},
 		Exports:     []core.Providers{NewRepository},
 	})
 }

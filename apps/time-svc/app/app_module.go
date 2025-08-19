@@ -7,6 +7,7 @@ import (
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/mongodoc"
+	"github.com/tinh-tinh/pubsub/v2"
 	"github.com/tinh-tinh/tinhtinh/microservices"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -17,6 +18,9 @@ func NewModule() core.Module {
 			factory.Register(),
 			mongodoc.Register(),
 			microservices.Register(),
+			pubsub.ForRoot(pubsub.BrokerOptions{
+				MaxSubscribers: 100,
+			}),
 			shared.NewModule,
 			works_chedules.NewModule,
 		},

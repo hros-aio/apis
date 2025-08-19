@@ -55,6 +55,7 @@ require (
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
 	github.com/tinh-tinh/cacher/v2 v2.3.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
+	github.com/tinh-tinh/pubsub/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect
