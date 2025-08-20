@@ -3,7 +3,9 @@ package app
 import (
 	"github.com/hros-aio/apis/apps/setting-svc/app/companies"
 	"github.com/hros-aio/apis/apps/setting-svc/app/departments"
+	"github.com/hros-aio/apis/apps/setting-svc/app/grades"
 	"github.com/hros-aio/apis/apps/setting-svc/app/locations"
+	"github.com/hros-aio/apis/apps/setting-svc/app/titles"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql"
@@ -18,11 +20,13 @@ func NewModule() core.Module {
 	return core.NewModule(core.NewModuleOptions{
 		Imports: []core.Modules{
 			factory.Register(),
-			psql.Register(&company.CompanyDB{}, &location.LocationDB{}, &department.DepartmentDB{}),
+			psql.Register(&company.CompanyDB{}, &location.LocationDB{}, &department.DepartmentDB{}, &grades.GradeDB{}, &titles.TitleDB{}),
 			saga.Register(),
 			companies.NewModule,
 			locations.NewModule,
 			departments.NewModule,
+			grades.NewModule,
+			titles.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,
