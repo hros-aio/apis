@@ -16,7 +16,15 @@ func NewController(module core.Module) core.Controller {
 	ctrl.
 		Pipe(core.BodyParser[CreateCompanyInput]{}).
 		Post("", func(ctx core.Ctx) error {
-			return ctx.JSON(nil)
+			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+			input := core.Execution[CreateCompanyInput](core.InBody, ctx)
+
+			model := input.Dto()
+			data, err := svc.Create(*contextInfo, model)
+			if err != nil {
+				return err
+			}
+			return ctx.JSON(data)
 		})
 
 	ctrl.

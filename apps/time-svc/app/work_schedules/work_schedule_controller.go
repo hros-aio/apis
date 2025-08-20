@@ -48,7 +48,7 @@ func NewController(module core.Module) core.Controller {
 			core.PathParser[shared.ParamID]{},
 			core.BodyParser[UpdateWorkScheduleInput]{},
 		).
-		Put("/:id", func(ctx core.Ctx) error {
+		Put("/{id}", func(ctx core.Ctx) error {
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
 			input := core.Execution[UpdateWorkScheduleInput](core.InBody, ctx)
 
@@ -65,7 +65,7 @@ func NewController(module core.Module) core.Controller {
 
 	ctrl.
 		Pipe(core.PathParser[shared.ParamID]{}).
-		Delete("/:id", func(ctx core.Ctx) error {
+		Delete("/{id}", func(ctx core.Ctx) error {
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
 
 			err := svc.Delete(*contextInfo, ctx.Path("id"))

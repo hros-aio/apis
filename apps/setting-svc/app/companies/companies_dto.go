@@ -14,6 +14,25 @@ type CreateCompanyInput struct {
 	SecondaryContact *tenant.ContactPerson `json:"secondaryContact" validate:"nested"`
 }
 
+func (data *CreateCompanyInput) Dto() *company.CompanyModel {
+	model := &company.CompanyModel{
+		Name:     data.Name,
+		Industry: data.Industry,
+		Size:     data.Size,
+		Logo:     data.Logo,
+	}
+
+	if data.Contact != nil {
+		model.Contact = *data.Contact
+	}
+
+	if data.SecondaryContact != nil {
+		model.SecondaryContact = *data.SecondaryContact
+	}
+
+	return model
+}
+
 type UpdateCompanyInput struct {
 	Name             string                `json:"name,omitempty" example:"Terralogic Inc"`
 	Industry         string                `json:"industry,omitempty" example:"Techincal"`

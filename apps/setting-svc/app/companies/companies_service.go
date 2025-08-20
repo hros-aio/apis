@@ -23,6 +23,21 @@ func NewService(module core.Module) core.Provider {
 	})
 }
 
+func (s *CompanyService) Create(ctx middleware.ContextInfo, model *company.CompanyModel) (*company.CompanyModel, error) {
+	if model.TenantId == "" {
+		model.TenantId = ctx.TenantID
+	}
+	createdCompany, err := s.companyRepo.Create(model)
+	if err != nil {
+		s.logger.Error("Failed to create company", logger.Metadata{
+			"error": err.Error(),
+			"model": model,
+		})
+		return nil, err
+	}
+	return createdCompany, nil
+}
+
 func (s *CompanyService) List(ctx middleware.ContextInfo, queryParams middleware.Paginate) ([]*company.CompanyModel, int64, error) {
 	data, total, err := s.companyRepo.FindAll(map[string]any{
 		"tenant_id": ctx.TenantID,
@@ -31,7 +46,10 @@ func (s *CompanyService) List(ctx middleware.ContextInfo, queryParams middleware
 		Limit:  queryParams.Limit,
 	})
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("Failed to fetch list companies", logger.Metadata{
+			"error": err.Error(),
+			"query": queryParams,
+		})
 		return nil, 0, err
 	}
 
@@ -41,7 +59,10 @@ func (s *CompanyService) List(ctx middleware.ContextInfo, queryParams middleware
 func (s *CompanyService) UpdateById(ctx middleware.ContextInfo, id string, model *company.CompanyModel) (*company.CompanyModel, error) {
 	foundCompany, err := s.companyRepo.UpdateByID(id, model)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("Failed to update company", logger.Metadata{
+			"error": err.Error(),
+			"model": model,
+		})
 		return nil, err
 	}
 	return foundCompany, nil
@@ -50,7 +71,9 @@ func (s *CompanyService) UpdateById(ctx middleware.ContextInfo, id string, model
 func (s *CompanyService) DeleteById(ctx middleware.ContextInfo, id string) error {
 	err := s.companyRepo.Model.DeleteByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("Failed to delete company", logger.Metadata{
+			"error": err.Error(),
+		})
 		return err
 	}
 	return nil

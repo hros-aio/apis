@@ -23,10 +23,10 @@ func NewHandler(module core.Module) core.Provider {
 			return err
 		}
 
-		input := &company.CompanyDB{
+		input := &company.CompanyModel{
 			TenantId: data.TenantId,
 			Name:     data.Name,
-			Contact:  tenant.ContactPersonDb(data.Contact),
+			Contact:  tenant.ContactPerson(data.Contact),
 		}
 		createdCompany, err := repo.Create(input)
 		if err != nil {

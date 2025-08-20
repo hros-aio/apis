@@ -18,7 +18,7 @@ func Create(module core.ModuleParam, prefix string) *core.App {
 	//app.EnableCors(cors.Options{})
 	//	app.Use(compression.Handler())
 	app.Use(logger.Handler(logger.MiddlewareOptions{
-		Format:             logger.Common,
+		Format:             logger.Dev,
 		SeparateBaseStatus: true,
 		Rotate:             true,
 		Max:                50,

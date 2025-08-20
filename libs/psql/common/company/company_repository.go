@@ -21,8 +21,9 @@ func NewRepository(module core.Module) core.Provider {
 	})
 }
 
-func (r *Repository) Create(model any) (*CompanyModel, error) {
-	data, err := r.Model.Create(model)
+func (r *Repository) Create(model *CompanyModel) (*CompanyModel, error) {
+	input := model.DataMapper()
+	data, err := r.Model.Create(input)
 	if err != nil {
 		return nil, err
 	}
