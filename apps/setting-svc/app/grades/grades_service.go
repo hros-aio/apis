@@ -48,7 +48,7 @@ func (s *GradeService) List(ctx middleware.ContextInfo, queryParams middleware.P
 		filter["company_id"] = ctx.CompanyID
 	}
 
-	data, total, err := s.gradeRepo.FindAll(sqlorm.Query(filter), sqlorm.FindOptions{
+	data, total, err := s.gradeRepo.FindAll(filter, sqlorm.FindOptions{
 		Limit:  queryParams.Limit,
 		Offset: queryParams.Skip,
 	})
