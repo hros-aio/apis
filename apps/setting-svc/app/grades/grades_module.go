@@ -10,5 +10,8 @@ func NewModule(module core.Module) core.Module {
 		Imports: []core.Modules{
 			sqlorm.ForFeature(sqlorm.NewRepo(GradeDB{})),
 		},
+		Controllers: []core.Controllers{NewController},
+		Providers:   []core.Providers{NewRepository, NewService},
+		Exports:     []core.Providers{NewRepository},
 	})
 }
