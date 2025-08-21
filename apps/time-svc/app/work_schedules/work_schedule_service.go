@@ -1,8 +1,6 @@
 package works_chedules
 
 import (
-	"reflect"
-
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
@@ -25,13 +23,6 @@ func NewService(module core.Module) core.Provider {
 }
 
 func (s *WorkScheduleService) Create(ctx middleware.ContextInfo, model *WorkScheduleModel) (*mongo.InsertOneResult, error) {
-	if reflect.ValueOf(model.TenantID).IsZero() {
-		model.TenantID = ctx.TenantID
-	}
-
-	if reflect.ValueOf(model.CompanyID).IsZero() {
-		model.CompanyID = ctx.CompanyID.String()
-	}
 	data, err := s.repo.Create(model)
 	if err != nil {
 		s.logger.Error("Failed to create work schedule", logger.Metadata{

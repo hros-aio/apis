@@ -3,6 +3,7 @@ package locations
 import (
 	"reflect"
 
+	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/location"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/hros-aio/apis/libs/saga/messages"
@@ -20,9 +21,11 @@ type CreateLocationInput struct {
 	Contact  *tenant.ContactPerson `json:"contact" validate:"nested"`
 }
 
-func (data CreateLocationInput) Dto() *location.LocationModel {
+func (data CreateLocationInput) Dto(ctx middleware.ContextInfo) *location.LocationModel {
 	model := &location.LocationModel{
-		Name: data.Name,
+		TenantId:  ctx.TenantID,
+		CompanyID: ctx.CompanyID,
+		Name:      data.Name,
 		AddressInfo: location.AddressInfo{
 			Line:     data.Line,
 			City:     data.City,

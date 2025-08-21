@@ -1,8 +1,7 @@
 package grades
 
 import (
-	"reflect"
-
+	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/saga"
 	"github.com/tinh-tinh/sqlorm/v2"
@@ -44,7 +43,7 @@ func (s *GradeService) List(ctx middleware.ContextInfo, queryParams middleware.P
 	filter := make(map[string]any)
 	filter["tenant_id"] = ctx.TenantID
 
-	if !reflect.ValueOf(ctx.CompanyID).IsZero() {
+	if ctx.CompanyID != uuid.Nil {
 		filter["company_id"] = ctx.CompanyID
 	}
 
@@ -60,6 +59,18 @@ func (s *GradeService) List(ctx middleware.ContextInfo, queryParams middleware.P
 		return nil, 0, err
 	}
 	return data, total, nil
+}
+
+func (s *GradeService) GetByID(ctx middleware.ContextInfo, id string) (*GradeModel, error) {
+	grade, err := s.gradeRepo.FindByID(id)
+	if err != nil {
+		s.logger.Error("Failed to fetch grade", logger.Metadata{
+			"error": err.Error(),
+			"id":    id,
+		})
+		return nil, err
+	}
+	return grade, nil
 }
 
 func (s *GradeService) UpdateByID(ctx middleware.ContextInfo, id string, model *GradeModel) (*GradeModel, error) {

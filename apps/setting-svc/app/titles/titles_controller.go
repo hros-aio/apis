@@ -50,6 +50,19 @@ func NewController(module core.Module) core.Controller {
 			})
 		})
 
+	ctrl.Pipe(core.PathParser[shared.ParamID]{}).Get("{id}", func(ctx core.Ctx) error {
+		contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+
+		data, err := svc.GetByID(*contextInfo, ctx.Path("id"))
+		if err != nil {
+			return err
+		}
+
+		return ctx.JSON(core.Map{
+			"data": data,
+		})
+	})
+
 	ctrl.
 		Pipe(
 			core.PathParser[shared.ParamID]{},

@@ -37,7 +37,7 @@ func SetContext(ctx core.Ctx) error {
 		Referer:   ctx.Req().Referer(),
 	}
 
-	// Get tenant id
+	// Get tenant id from token
 	authorization := ctx.Headers("Authorization")
 	if authorization != "" {
 		token := authorization[len("Bearer "):]
@@ -58,7 +58,11 @@ func SetContext(ctx core.Ctx) error {
 	}
 
 	// get from query
-	if ctx.Query("companyId") != "" {
+	if contextInfo.TenantID == "" && ctx.Query("tenantId") != "" {
+		contextInfo.TenantID = ctx.Query("tenantId")
+	}
+
+	if contextInfo.CompanyID == uuid.Nil && ctx.Query("companyId") != "" {
 		contextInfo.CompanyID = uuid.MustParse(ctx.Query("companyId"))
 	}
 

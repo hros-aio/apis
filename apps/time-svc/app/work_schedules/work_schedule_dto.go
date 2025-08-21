@@ -1,6 +1,9 @@
 package works_chedules
 
-import "github.com/tinh-tinh/mongoose/v2"
+import (
+	"github.com/hros-aio/apis/libs/factory/middleware"
+	"github.com/tinh-tinh/mongoose/v2"
+)
 
 type CreateWorkScheduleInput struct {
 	Name       string     `json:"name" validate:"required" example:"Work Schedule"`
@@ -12,8 +15,10 @@ type CreateWorkScheduleInput struct {
 	Location   string     `json:"location" validate:"required" example:"Remote"`
 }
 
-func (data CreateWorkScheduleInput) Dto() *WorkScheduleModel {
+func (data CreateWorkScheduleInput) Dto(ctx middleware.ContextInfo) *WorkScheduleModel {
 	return &WorkScheduleModel{
+		TenantID:   ctx.TenantID,
+		CompanyID:  ctx.CompanyID.String(),
 		Name:       data.Name,
 		TotalHours: data.TotalHours,
 		StartAt:    data.StartAt,

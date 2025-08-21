@@ -1,8 +1,7 @@
 package locations
 
 import (
-	"reflect"
-
+	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/location"
 	"github.com/hros-aio/apis/libs/saga"
@@ -32,12 +31,6 @@ func NewService(module core.Module) core.Provider {
 }
 
 func (s *LocationService) Create(ctx middleware.ContextInfo, model *location.LocationModel) (*location.LocationModel, error) {
-	if reflect.ValueOf(model.TenantId).IsZero() {
-		model.TenantId = ctx.TenantID
-	}
-	if reflect.ValueOf(model.CompanyID).IsZero() {
-		model.CompanyID = ctx.CompanyID
-	}
 	createdLocation, err := s.locationRepo.Create(model)
 	if err != nil {
 		s.logger.Error(err.Error())
@@ -55,7 +48,7 @@ func (s *LocationService) List(ctx middleware.ContextInfo, queryParams middlewar
 		filter["tenant_id"] = ctx.TenantID
 	}
 
-	if !reflect.ValueOf(ctx.CompanyID).IsZero() {
+	if ctx.CompanyID != uuid.Nil {
 		filter["company_id"] = ctx.CompanyID
 	}
 	data, total, err := s.locationRepo.FindAll(filter, sqlorm.FindOptions{

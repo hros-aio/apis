@@ -21,7 +21,7 @@ func NewController(module core.Module) core.Controller {
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
 			input := core.Execution[CreateDepartmentInput](core.InBody, ctx)
 
-			model := input.Dto()
+			model := input.Dto(*contextInfo)
 			data, err := svc.Create(*contextInfo, model)
 			if err != nil {
 				return err

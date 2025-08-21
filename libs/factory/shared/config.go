@@ -9,6 +9,8 @@ type Config struct {
 	Redis                  RedisConfig    `yaml:"redis"`
 	Kafka                  KafkaConfig    `yaml:"kafka"`
 	Nats                   NatsConfig     `yaml:"nats"`
+	Http                   HttpConfig     `yaml:"http"`
+	ApiKey                 string         `mapstructure:"API_KEY"`
 	AccessTokenPrivateKey  string         `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
 	AccessTokenPublicKey   string         `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
 	AccessTokenExpiresIn   time.Duration  `mapstructure:"ACCESS_TOKEN_EXPIRES_IN"`
@@ -46,19 +48,7 @@ type NatsConfig struct {
 	Addr string `yaml:"addr"`
 }
 
-type JwtSecret struct {
-	AccessTokenPrivateKey  string        `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
-	AccessTokenPublicKey   string        `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
-	AccessTokenExpiresIn   time.Duration `mapstructure:"ACCESS_TOKEN_EXPIRES_IN"`
-	RefreshTokenPrivateKey string        `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
-	RefreshTokenPublicKey  string        `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
-	RefreshTokenExpiresIn  time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRES_IN"`
-}
-
-type ParamID struct {
-	ID string `path:"id" example:"6cdad833-ba6d-49e3-889c-da23b764bb21"`
-}
-
-type QueryCompany struct {
-	CompanyID string `query:"companyId" example:"6cdad833-ba6d-49e3-889c-da23b764bb21"`
+type HttpConfig struct {
+	AuthUrl    string `yaml:"auth_url"`
+	SettingUrl string `yaml:"setting_url"`
 }

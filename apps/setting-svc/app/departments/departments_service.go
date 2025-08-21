@@ -1,8 +1,7 @@
 package departments
 
 import (
-	"reflect"
-
+	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/department"
 	"github.com/hros-aio/apis/libs/saga"
@@ -30,12 +29,6 @@ func NewService(module core.Module) core.Provider {
 }
 
 func (s *DepartmentService) Create(ctx middleware.ContextInfo, model *department.DepartmentModel) (*department.DepartmentModel, error) {
-	if reflect.ValueOf(model.TenantID).IsZero() {
-		model.TenantID = ctx.TenantID
-	}
-	if reflect.ValueOf(model.CompanyID).IsZero() {
-		model.CompanyID = ctx.CompanyID
-	}
 	createdLocation, err := s.departmentRepo.Create(model)
 	if err != nil {
 		s.logger.Error(err.Error())
@@ -51,7 +44,7 @@ func (s *DepartmentService) List(ctx middleware.ContextInfo, queryParams middlew
 		filter["tenant_id"] = ctx.TenantID
 	}
 
-	if !reflect.ValueOf(ctx.CompanyID).IsZero() {
+	if ctx.CompanyID != uuid.Nil {
 		filter["company_id"] = ctx.CompanyID
 	}
 	data, total, err := s.departmentRepo.FindAll(filter, sqlorm.FindOptions{

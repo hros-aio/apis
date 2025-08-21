@@ -1,8 +1,10 @@
 package middleware
 
 import (
+	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/auth/v2"
 	"github.com/tinh-tinh/cacher/v2"
+	"github.com/tinh-tinh/config/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
@@ -23,6 +25,18 @@ func AuthN(ctx core.Ctx) error {
 	// Check metadata
 	isPublic, ok := ctx.GetMetadata(IS_PUBLIC).(bool)
 	if ok && isPublic {
+		return ctx.Next()
+	}
+
+	apiKey := ctx.Headers("X-API-Key")
+	if apiKey != "" {
+		cfg, ok := ctx.Ref(config.ENV).(*shared.Config)
+		if !ok {
+			return exception.InternalServer("Config not found")
+		}
+		if cfg.ApiKey != apiKey {
+			return exception.Unauthorized("Invalid API key")
+		}
 		return ctx.Next()
 	}
 

@@ -1,8 +1,7 @@
 package titles
 
 import (
-	"reflect"
-
+	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/saga"
 	"github.com/tinh-tinh/sqlorm/v2"
@@ -44,7 +43,7 @@ func (s *TitleService) List(ctx middleware.ContextInfo, queryParams middleware.P
 	filter := make(map[string]any)
 	filter["tenant_id"] = ctx.TenantID
 
-	if !reflect.ValueOf(ctx.CompanyID).IsZero() {
+	if ctx.CompanyID != uuid.Nil {
 		filter["company_id"] = ctx.CompanyID
 	}
 
@@ -60,6 +59,18 @@ func (s *TitleService) List(ctx middleware.ContextInfo, queryParams middleware.P
 		return nil, 0, err
 	}
 	return titles, total, nil
+}
+
+func (s *TitleService) GetByID(ctx middleware.ContextInfo, id string) (*TitleModel, error) {
+	title, err := s.titleRepo.FindByID(id)
+	if err != nil {
+		s.logger.Error("Failed to fetch title", logger.Metadata{
+			"error": err.Error(),
+			"id":    id,
+		})
+		return nil, err
+	}
+	return title, nil
 }
 
 func (s *TitleService) UpdateByID(ctx middleware.ContextInfo, id string, model *TitleModel) (*TitleModel, error) {
