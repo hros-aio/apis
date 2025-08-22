@@ -131,8 +131,8 @@ github.com/tinh-tinh/pubsub/v2 v2.1.0 h1:r6/cSc1t/PM1+k31eRlwiB/qnLCFhAx8uV1h8vZ
 github.com/tinh-tinh/pubsub/v2 v2.1.0/go.mod h1:xgDpynDFYskKiX5asSC2d1pvKOeGitH5xRyeSDNwfEs=
 github.com/tinh-tinh/queue/v2 v2.1.0 h1:mZ+3wrAKZBzCWcFO71wMs2TVRKnkL9Y8/s7OeytZd48=
 github.com/tinh-tinh/queue/v2 v2.1.0/go.mod h1:D/Xf6AU6DjPcXpcvIF58XtsDM0To+NAtOSrb7P/6Aaw=
-github.com/tinh-tinh/swagger/v2 v2.2.0 h1:2mQ16zz12YeMRLnkdTbaynqsvGQdthBspDEQGWvgack=
-github.com/tinh-tinh/swagger/v2 v2.2.0/go.mod h1:DPJii9L/jergKGupTq6N3Fsd2A1ncW4Q5fmLsfpUnrA=
+github.com/tinh-tinh/swagger/v2 v2.2.1 h1:kyEQljASjXBn47T90rduyIVFVWTjmJLJgkDkU+kcTAc=
+github.com/tinh-tinh/swagger/v2 v2.2.1/go.mod h1:Xi2eHg33aoA5/Yxdi7t7Ybf1XGJ9iAk+zwpuoaXve1A=
 github.com/tinh-tinh/tinhtinh/microservices v1.1.0 h1:2qpVP6oPpZ4YsfzmLAd/Kz5AbfTPTQaZVYOVKPFv9dc=
 github.com/tinh-tinh/tinhtinh/microservices v1.1.0/go.mod h1:VmtPBRPPMDMa/48FqQwvwE9DngQJy51Rjmmfm3OglmI=
 github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0 h1:g7eYwvqqypsDQkoz4VZ3kXVNQepLuIMSVQ7CTrqh09g=

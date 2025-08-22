@@ -12,7 +12,7 @@ require (
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/fetch/v2 v2.0.1
 	github.com/tinh-tinh/queue/v2 v2.1.0
-	github.com/tinh-tinh/swagger/v2 v2.2.0
+	github.com/tinh-tinh/swagger/v2 v2.2.1
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
 )
 

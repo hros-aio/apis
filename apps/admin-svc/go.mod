@@ -7,8 +7,8 @@ require (
 	github.com/hros-aio/apis/libs/psql v1.0.0
 	github.com/hros-aio/apis/libs/saga v0.0.1
 	github.com/tinh-tinh/config/v2 v2.1.0
-	github.com/tinh-tinh/swagger/v2 v2.2.0
-	github.com/tinh-tinh/tinhtinh/v2 v2.3.0
+	github.com/tinh-tinh/swagger/v2 v2.2.1
+	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
 )
 
 require (
@@ -57,16 +57,16 @@ require (
 	github.com/tinh-tinh/cacher/v2 v2.3.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
-	github.com/tinh-tinh/sqlorm/v2 v2.3.1 // indirect
+	github.com/tinh-tinh/sqlorm/v2 v2.3.2 // indirect
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0 // indirect
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0 // indirect
-	golang.org/x/crypto v0.40.0 // indirect
-	golang.org/x/net v0.42.0 // indirect
+	golang.org/x/crypto v0.41.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/postgres v1.6.0 // indirect
-	gorm.io/gorm v1.30.0 // indirect
+	gorm.io/gorm v1.30.1 // indirect
 )
 
 replace (
