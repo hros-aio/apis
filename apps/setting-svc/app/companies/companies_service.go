@@ -24,8 +24,8 @@ func NewService(module core.Module) core.Provider {
 }
 
 func (s *CompanyService) Create(ctx middleware.ContextInfo, model *company.CompanyModel) (*company.CompanyModel, error) {
-	if model.TenantId == "" {
-		model.TenantId = ctx.TenantID
+	if model.TenantID == "" {
+		model.TenantID = ctx.TenantID
 	}
 	createdCompany, err := s.companyRepo.Create(model)
 	if err != nil {

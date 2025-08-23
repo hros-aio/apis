@@ -24,7 +24,7 @@ func NewHandler(module core.Module) core.Provider {
 		}
 
 		input := &company.CompanyModel{
-			TenantId: data.TenantId,
+			TenantID: data.TenantId,
 			Name:     data.Name,
 			Contact:  tenant.ContactPerson(data.Contact),
 		}

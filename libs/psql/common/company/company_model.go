@@ -2,6 +2,7 @@ package company
 
 import (
 	"reflect"
+	"time"
 
 	"github.com/hros-aio/apis/libs/psql/common/base"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
@@ -10,18 +11,23 @@ import (
 
 type CompanyModel struct {
 	base.Model
-	TenantId         string               `json:"tenantId"`
+	TenantID         string               `json:"tenantId"`
 	Name             string               `json:"name"`
+	Legalname        string               `json:"legalName"`
+	RegistrationNo   string               `json:"registrationNo"`
+	TaxID            string               `json:"taxId"`
+	Website          string               `json:"website"`
 	Industry         string               `json:"industry"`
 	Size             int                  `json:"size"`
 	Logo             string               `json:"logo"`
+	FoundedDate      time.Time            `json:"foundedDate"`
 	Contact          tenant.ContactPerson `json:"contact"`
 	SecondaryContact tenant.ContactPerson `json:"secondaryContact"`
 }
 
 func (model CompanyModel) DataMapper() *CompanyDB {
 	data := &CompanyDB{
-		TenantId:         model.TenantId,
+		TenantID:         model.TenantID,
 		Name:             model.Name,
 		Industry:         model.Industry,
 		Size:             model.Size,
