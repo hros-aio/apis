@@ -11,7 +11,7 @@ redis:
   password: ""
   db: 0
 kafka:
-  enable: false
+  enable: true
   brokers: ["localhost:9092"]
   topics: ["hros_time_svc"]
   group_id: "hros_time_svc_group"

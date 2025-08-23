@@ -1,4 +1,4 @@
-package works_chedules
+package work_schedules
 
 import (
 	"github.com/tinh-tinh/mongoose/v2"

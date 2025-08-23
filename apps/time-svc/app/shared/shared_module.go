@@ -1,8 +1,7 @@
 package shared
 
 import (
-	"time-svc/app/shared/locations"
-
+	"github.com/hros-aio/apis/apps/time-svc/app/shared/locations"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 

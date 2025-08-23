@@ -80,6 +80,8 @@ github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
 github.com/kr/text v0.2.0/go.mod h1:eLer722TekiGuMkidMxC/pM04lWEeraHUUmBw8l2grE=
 github.com/mailru/easyjson v0.9.0 h1:PrnmzHw7262yW8sTBwxi1PdJA3Iw/EKBa8psRf7d9a4=
 github.com/mailru/easyjson v0.9.0/go.mod h1:1+xMtQp2MRNVL/V1bOzuP3aP8VNwRW55fQUto+XFtTU=
+github.com/mattn/go-sqlite3 v1.14.24 h1:tpSp2G2KyMnnQu99ngJ47EIkWVmliIizyZBfPrBWDRM=
+github.com/mattn/go-sqlite3 v1.14.24/go.mod h1:Uh1q+B4BYcTPb+yiD3kU8Ct7aC0hY9fxUwlHK0RXw+Y=
 github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 h1:RWengNIwukTxcDr9M+97sNutRR1RKhG96O6jWumTTnw=
 github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826/go.mod h1:TaXosZuwdSHYgviHp1DAtfrULt5eUgsSMsZf+YrPgl8=
 github.com/montanaflynn/stats v0.7.1 h1:etflOAAHORrCC44V+aR6Ftzort912ZU+YLiSTuV8eaE=
@@ -119,6 +121,8 @@ github.com/tinh-tinh/auth/v2 v2.2.1 h1:tRw/ty02k0tptK2KrbBXEpKEF55iCWR5zwtmakjBE
 github.com/tinh-tinh/auth/v2 v2.2.1/go.mod h1:aHf6gLB6qcOvPyPNUToLhxbzu4SbHTG3FAbmKcTRtxw=
 github.com/tinh-tinh/cacher/storage/redis v1.1.0 h1:2XfdBxwDeZefiMESQuQ5KCQE6e8sCQ3j7Uj6CfMOQTM=
 github.com/tinh-tinh/cacher/storage/redis v1.1.0/go.mod h1:VfXmg+CYMFLBT89f3TsDbHkZUrndl0tkaCgyX0KX4RI=
+github.com/tinh-tinh/cacher/storage/sqlite3 v1.1.0 h1:6PG5B+gGHBY59ZyPDeOS1BdQ74/D/LhzWiPN+TroQmI=
+github.com/tinh-tinh/cacher/storage/sqlite3 v1.1.0/go.mod h1:nXWbX4DzQp2dpdeSvJSChGmnOjBzf1s+sy8na43mIb0=
 github.com/tinh-tinh/cacher/v2 v2.3.0 h1:yyMCRPln1iJBCTdlu8PVasaBq0EqqfmCqdMJ35J3rrw=
 github.com/tinh-tinh/cacher/v2 v2.3.0/go.mod h1:pmACIB/qacQ1yeqo+OeBlscusyJfkkeuRjR55I+KrmM=
 github.com/tinh-tinh/config/v2 v2.1.0 h1:ocgvoNP6v7PbTieBlSRo5Tbu0L4z3MKNIoHeC88W9cs=

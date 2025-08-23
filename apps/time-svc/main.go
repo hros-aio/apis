@@ -1,8 +1,7 @@
 package main
 
 import (
-	"time-svc/app"
-
+	"github.com/hros-aio/apis/apps/time-svc/app"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/config/v2"

@@ -1,4 +1,4 @@
-package works_chedules
+package work_schedules
 
 import (
 	"github.com/hros-aio/apis/libs/mongodoc/common/base"

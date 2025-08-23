@@ -37,7 +37,9 @@ func (s *LocationService) Create(ctx middleware.ContextInfo, model *location.Loc
 		return nil, err
 	}
 
-	go s.eventPublisher.Publish(events.LocationCreated, ToCreatedMessage(createdLocation))
+	go s.eventPublisher.RegisterSync(events.LocationCreated, messages.SyncDataPayload{
+		Data: ToCreatedMessage(createdLocation),
+	})
 	return createdLocation, nil
 }
 

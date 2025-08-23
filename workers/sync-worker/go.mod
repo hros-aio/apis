@@ -1,15 +1,14 @@
-module orchestrator-svc
+module github.com/hros-aio/apis/workers/sync-worker
 
 go 1.24.1
 
 require (
 	github.com/hros-aio/apis/libs/factory v0.0.1
 	github.com/hros-aio/apis/libs/saga v0.0.1
-	github.com/tinh-tinh/config/v2 v2.1.0
-	github.com/tinh-tinh/mongoose/v2 v2.2.0
+	github.com/tinh-tinh/cacher/v2 v2.3.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
+	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
 	github.com/tinh-tinh/tinhtinh/v2 v2.3.1
-	go.mongodb.org/mongo-driver v1.17.4
 )
 
 require (
@@ -39,8 +38,8 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/mailru/easyjson v0.9.0 // indirect
+	github.com/mattn/go-sqlite3 v1.14.24 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
-	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/oasdiff/yaml v0.0.0-20250309154309-f31be36b4037 // indirect
 	github.com/oasdiff/yaml3 v0.0.0-20250309153720-d2182401db90 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
@@ -50,19 +49,13 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/tinh-tinh/auth/v2 v2.2.1 // indirect
 	github.com/tinh-tinh/cacher/storage/redis v1.1.0 // indirect
-	github.com/tinh-tinh/cacher/v2 v2.3.0 // indirect
+	github.com/tinh-tinh/cacher/storage/sqlite3 v1.1.0 // indirect
+	github.com/tinh-tinh/config/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
 	github.com/tinh-tinh/swagger/v2 v2.2.1 // indirect
-	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0 // indirect
-	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
-	github.com/xdg-go/scram v1.1.2 // indirect
-	github.com/xdg-go/stringprep v1.0.4 // indirect
-	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	golang.org/x/crypto v0.41.0 // indirect
 	golang.org/x/net v0.43.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 

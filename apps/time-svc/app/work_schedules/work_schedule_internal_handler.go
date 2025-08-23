@@ -1,8 +1,7 @@
-package works_chedules
+package work_schedules
 
 import (
-	"time-svc/common/constants"
-
+	"github.com/hros-aio/apis/apps/time-svc/common/constants"
 	"github.com/hros-aio/apis/libs/mongodoc/common/location"
 	"github.com/tinh-tinh/mongoose/v2"
 	"github.com/tinh-tinh/pubsub/v2"
