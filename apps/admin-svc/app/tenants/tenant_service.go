@@ -9,7 +9,6 @@ import (
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/hros-aio/apis/libs/saga"
 	"github.com/hros-aio/apis/libs/saga/events"
-	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
@@ -45,14 +44,7 @@ func (s *TenantService) Create(ctx middleware.ContextInfo, input *TenantCreateIn
 		s.logger.Errorf("Failed to create tenant: %s", err.Error())
 		return nil, err
 	}
-	go s.eventPublisher.Publish(events.TenantCreated, messages.TenantCreatedPayload{
-		Id:        data.ID.String(),
-		Name:      data.Contact.ContactName,
-		CreatedAt: data.CreatedAt,
-		TenantId:  data.TenantId,
-		Domain:    data.Domain,
-		Contact:   messages.ContactPerson(data.Contact),
-	})
+	go s.eventPublisher.Publish(events.TenantCreated, ToMessage(data))
 	return data, nil
 }
 

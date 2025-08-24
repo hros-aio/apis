@@ -12,7 +12,7 @@ redis:
   db: 0
 kafka:
   brokers: ["localhost:9092"]
-  topics: ["hros_admin_svc"]
+  topics: ["hros_admin_events"]
   group_id: "hros_admin_svc_group"
 nats:
   addr: localhost:4222

@@ -13,7 +13,7 @@ redis:
 kafka:
   enable: true
   brokers: ["localhost:9092"]
-  topics: ["hros_time_svc"]
+  topics: ["hros_time_events"]
   group_id: "hros_time_svc_group"
 nats:
   addr: localhost:4222

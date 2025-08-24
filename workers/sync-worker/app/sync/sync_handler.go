@@ -1,18 +1,18 @@
 package sync
 
 import (
-	"github.com/hros-aio/apis/libs/saga"
 	"github.com/hros-aio/apis/libs/saga/events"
 	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/cacher/v2"
+	"github.com/tinh-tinh/queue/v2"
 	"github.com/tinh-tinh/tinhtinh/microservices"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 )
 
 func NewHandler(module core.Module) core.Provider {
 	handler := microservices.NewHandler(module, core.ProviderOptions{})
-	cacheSaga := cacher.Inject[messages.SyncRegisteredPayload](module)
-	eventPublisher := module.Ref(saga.EVENT_PUBLISHER).(*saga.EventPulisher)
+	cacheSync := cacher.Inject[messages.SyncRegisteredPayload](module)
+	syncQueue := queue.Inject(module, QUEUE_NAME)
 
 	handler.OnEvent(events.SyncRegistered, func(ctx microservices.Ctx) error {
 		var payload messages.SyncRegisteredPayload
@@ -20,9 +20,16 @@ func NewHandler(module core.Module) core.Provider {
 			return err
 		}
 
-		go eventPublisher.Publish(payload.Event, payload.SyncDataPayload, microservices.Header{
-			"sessionId": payload.SessionId.String(),
+		err := cacheSync.Set(payload.SessionId.String(), payload)
+		if err != nil {
+			return err
+		}
+
+		syncQueue.AddJob(queue.AddJobOptions{
+			Id:   payload.SessionId.String(),
+			Data: payload,
 		})
+
 		return nil
 	})
 
@@ -32,14 +39,16 @@ func NewHandler(module core.Module) core.Provider {
 			return err
 		}
 
-		cached, err := cacheSaga.Get(payload.SessionId.String())
+		cached, err := cacheSync.Get(payload.SessionId.String())
 		if err != nil {
 			return err
 		}
 
-		go eventPublisher.Publish(cached.Event, cached.SyncDataPayload, microservices.Header{
-			"sessionId": cached.SessionId.String(),
+		syncQueue.AddJob(queue.AddJobOptions{
+			Id:   payload.SessionId.String(),
+			Data: cached,
 		})
+
 		return nil
 	})
 

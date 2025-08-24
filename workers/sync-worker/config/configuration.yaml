@@ -12,6 +12,7 @@ redis:
   db: 0
 kafka:
   brokers: ["localhost:9092"]
+  topics: ["hros_worker_events"]
   group_id: "hros_sync_worker_group"
 nats:
   addr: localhost:4222

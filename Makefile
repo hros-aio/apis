@@ -17,3 +17,7 @@ run-orchestrator-svc:
 .PHONY: run-time-svc
 run-time-svc:
 	cd apps/time-svc && go run main.go
+
+.PHONY: run-workers
+run-workers:
+	cd apps/workers/sync-worker && go run main.go

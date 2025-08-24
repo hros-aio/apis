@@ -16,6 +16,7 @@ func Register() core.Modules {
 	return func(module core.Module) core.Module {
 		return module.New(core.NewModuleOptions{
 			Imports: []core.Modules{
+				microservices.Register(),
 				microservices.RegisterClientFactory(
 					func(ref core.RefProvider) []microservices.ClientOptions {
 						cfg := config.Inject[shared.Config](ref)

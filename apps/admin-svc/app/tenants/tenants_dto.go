@@ -1,6 +1,9 @@
 package tenants
 
-import "github.com/hros-aio/apis/libs/psql/common/tenant"
+import (
+	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/hros-aio/apis/libs/saga/messages"
+)
 
 type ContactInput struct {
 	Name  string `json:"name" example:"Renil"`
@@ -25,5 +28,16 @@ func (m *TenantCreateInput) Dto() *tenant.TenantDB {
 			ContactEmail: m.Contact.Email,
 			ContactPhone: m.Contact.Phone,
 		},
+	}
+}
+
+func ToMessage(data *tenant.TenantModel) messages.TenantCreatedPayload {
+	return messages.TenantCreatedPayload{
+		Id:        data.ID.String(),
+		Name:      data.Contact.ContactName,
+		CreatedAt: data.CreatedAt,
+		TenantId:  data.TenantId,
+		Domain:    data.Domain,
+		Contact:   messages.ContactPerson(data.Contact),
 	}
 }
