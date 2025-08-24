@@ -1,0 +1,20 @@
+port: 3002
+postgres:
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  database: admin
+  sslmode: disable
+redis:
+  addr: localhost:6379
+  password: ""
+  db: 0
+kafka:
+  brokers: ["localhost:9092"]
+  topics: ["hros_directory_events"]
+  group_id: "hros_directory_svc_group"
+nats:
+  addr: localhost:4222
+mongo:
+  url: mongodb://localhost:27017/admin

@@ -10,11 +10,15 @@ func Create(module core.ModuleParam, prefix string) *core.App {
 	app := core.CreateFactory(module)
 
 	// Apply middleware
+	app.EnableVersioning(core.VersionOptions{
+		Type: core.MediaTypeVersion,
+		Key:  "v=",
+	})
 	app.SetGlobalPrefix(prefix)
 	//app.EnableCors(cors.Options{})
 	//	app.Use(compression.Handler())
 	app.Use(logger.Handler(logger.MiddlewareOptions{
-		Format:             logger.Common,
+		Format:             logger.Dev,
 		SeparateBaseStatus: true,
 		Rotate:             true,
 		Max:                50,

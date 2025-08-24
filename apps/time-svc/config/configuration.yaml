@@ -1,0 +1,21 @@
+port: 3003
+postgres:
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  database: setting
+  sslmode: disable
+redis:
+  addr: localhost:6379
+  password: ""
+  db: 0
+kafka:
+  enable: true
+  brokers: ["localhost:9092"]
+  topics: ["hros_time_events"]
+  group_id: "hros_time_svc_group"
+nats:
+  addr: localhost:4222
+mongo:
+  url: mongodb://localhost:27017/time

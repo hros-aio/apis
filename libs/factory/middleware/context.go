@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/google/uuid"
 	"github.com/tinh-tinh/auth/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
@@ -9,14 +10,18 @@ import (
 const APP_CONTEXT core.CtxKey = "AppContext"
 
 type ContextInfo struct {
-	IpAddress string `json:"ipAddress"`
-	UserAgent string `json:"userAgent"`
-	Referer   string `json:"referer"`
-	UserId    string `json:"userId"`
-	TenantID  string `json:"tenantId"`
+	IpAddress string    `json:"ipAddress"`
+	UserAgent string    `json:"userAgent"`
+	Referer   string    `json:"referer"`
+	SessionId string    `json:"sessionId"`
+	TenantID  string    `json:"tenantId"`
+	CompanyID uuid.UUID `json:"companyId"`
+	Token     string    `json:"token"`
+	User      *UserContext
 }
 
 func SetContext(ctx core.Ctx) error {
+	// Inject providers
 	jwtSvc, ok := ctx.Ref(auth.JWT_TOKEN).(auth.Jwt)
 	if !ok {
 		return exception.InternalServer("JWT service not found")
@@ -32,10 +37,11 @@ func SetContext(ctx core.Ctx) error {
 		Referer:   ctx.Req().Referer(),
 	}
 
-	// Get tenant id
+	// Get tenant id from token
 	authorization := ctx.Headers("Authorization")
 	if authorization != "" {
 		token := authorization[len("Bearer "):]
+		contextInfo.Token = token
 		claims, err := jwtSvc.Decode(token)
 		if err != nil {
 			return exception.Unauthorized("Invalid token")
@@ -43,11 +49,23 @@ func SetContext(ctx core.Ctx) error {
 		if tenantId, ok := claims["tenantId"].(string); ok {
 			contextInfo.TenantID = tenantId
 		}
-		if userId, ok := claims["userId"].(string); ok {
-			contextInfo.UserId = userId
+		if companyID, ok := claims["companyId"].(string); ok {
+			contextInfo.CompanyID = uuid.MustParse(companyID)
+		}
+		if sessionId, ok := claims["sub"].(string); ok {
+			contextInfo.SessionId = sessionId
 		}
 	}
 
-	ctx.Set(APP_CONTEXT, contextInfo)
+	// get from query
+	if contextInfo.TenantID == "" && ctx.Query("tenantId") != "" {
+		contextInfo.TenantID = ctx.Query("tenantId")
+	}
+
+	if contextInfo.CompanyID == uuid.Nil && ctx.Query("companyId") != "" {
+		contextInfo.CompanyID = uuid.MustParse(ctx.Query("companyId"))
+	}
+
+	ctx.Set(APP_CONTEXT, &contextInfo)
 	return ctx.Next()
 }

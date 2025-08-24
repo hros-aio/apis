@@ -9,6 +9,11 @@ import (
 
 const PAGINATE core.CtxKey = "Paginate"
 
+type PaginateInput struct {
+	Page  int `json:"page" query:"page" example:"1"`
+	Limit int `json:"limit" query:"limit" example:"10"`
+}
+
 type Paginate struct {
 	Skip  int
 	Limit int
