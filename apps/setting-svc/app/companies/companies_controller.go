@@ -1,6 +1,8 @@
 package companies
 
 import (
+	"fmt"
+
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/swagger/v2"
@@ -30,8 +32,11 @@ func NewController(module core.Module) core.Controller {
 	ctrl.
 		Use(middleware.Pagination).
 		Get("", func(ctx core.Ctx) error {
+			fmt.Println(1)
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
 			queryParams := core.Execution[middleware.Paginate](middleware.PAGINATE, ctx)
+
+			fmt.Println(contextInfo, queryParams)
 			data, total, err := svc.List(*contextInfo, *queryParams)
 			if err != nil {
 				return err
@@ -59,19 +64,27 @@ func NewController(module core.Module) core.Controller {
 		})
 	})
 
-	ctrl.
-		Pipe(core.PathParser[shared.ParamID]{}).
-		Delete("{id}", func(ctx core.Ctx) error {
-			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
-
-			err := svc.DeleteById(*contextInfo, ctx.Path("id"))
-			if err != nil {
-				return err
-			}
-			return ctx.JSON(core.Map{
-				"status": true,
-			})
+	ctrl.Pipe(core.PathParser[shared.ParamID]{}).Post("{id}/active", func(ctx core.Ctx) error {
+		contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+		_, err := svc.ActiveByID(*contextInfo, ctx.Path("id"))
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(core.Map{
+			"status": true,
 		})
+	})
+
+	ctrl.Pipe(core.PathParser[shared.ParamID]{}).Post("{id}/deactivate", func(ctx core.Ctx) error {
+		contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
+		_, err := svc.DeactiveByID(*contextInfo, ctx.Path("id"))
+		if err != nil {
+			return err
+		}
+		return ctx.JSON(core.Map{
+			"status": true,
+		})
+	})
 
 	return ctrl
 }

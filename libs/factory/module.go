@@ -1,6 +1,8 @@
 package factory
 
 import (
+	"time"
+
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	redis_store "github.com/redis/go-redis/v9"
@@ -31,18 +33,23 @@ func Register() core.Modules {
 						Workers:       10,
 					}
 				}),
-				cacher.RegisterFactory(func(ref core.RefProvider) cacher.Config {
+				cacher.RegisterMultiFactory(func(ref core.RefProvider) []cacher.Config {
 					cfg := config.Inject[shared.Config](ref)
 
-					store := redis.New(redis.Options{
+					memoryStore := cacher.NewInMemory(cacher.StoreOptions{
+						Ttl: 1 * time.Hour,
+					})
+					redisStore := redis.New(redis.Options{
 						Connect: &redis_store.Options{
 							Addr:     cfg.Redis.Addr,
 							Password: cfg.Redis.Pass,
 							DB:       cfg.Redis.DB,
 						},
+						Ttl: cfg.AccessTokenExpiresIn,
 					})
-					return cacher.Config{
-						Store: store,
+					return []cacher.Config{
+						{Store: memoryStore},
+						{Store: redisStore},
 					}
 				}),
 				auth.RegisterFactory(func(ref core.RefProvider) auth.JwtOptions {

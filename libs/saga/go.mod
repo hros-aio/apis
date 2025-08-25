@@ -5,8 +5,7 @@ go 1.24.1
 require (
 	github.com/google/uuid v1.6.0
 	github.com/hros-aio/apis/libs/factory v0.0.1
-	github.com/tinh-tinh/cacher/storage/sqlite3 v1.1.0
-	github.com/tinh-tinh/cacher/v2 v2.3.0
+	github.com/tinh-tinh/cacher/v2 v2.4.0
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
@@ -30,7 +29,6 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
-	github.com/mattn/go-sqlite3 v1.14.24 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	golang.org/x/crypto v0.41.0 // indirect

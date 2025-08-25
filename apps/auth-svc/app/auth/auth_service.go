@@ -24,7 +24,7 @@ func NewService(module core.Module) core.Provider {
 	userRepo := module.Ref(user.REPOSITORY).(*user.Repository)
 	jwtSvc := auth.InjectJwt(module)
 	config := config.Inject[shared.Config](module)
-	userCache := cacher.Inject[middleware.UserContext](module)
+	userCache := cacher.InjectSchemaByStore[middleware.UserContext](module, cacher.REDIS)
 
 	return module.NewProvider(&AuthService{
 		userRepo:  userRepo,

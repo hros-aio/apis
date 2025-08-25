@@ -7,8 +7,8 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/redis/go-redis/v9 v9.12.1
 	github.com/tinh-tinh/auth/v2 v2.2.1
-	github.com/tinh-tinh/cacher/storage/redis v1.1.0
-	github.com/tinh-tinh/cacher/v2 v2.3.0
+	github.com/tinh-tinh/cacher/storage/redis v1.2.0
+	github.com/tinh-tinh/cacher/v2 v2.4.0
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/fetch/v2 v2.0.1
 	github.com/tinh-tinh/queue/v2 v2.1.0
@@ -19,7 +19,7 @@ require (
 require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/getkin/kin-openapi v0.132.0 // indirect
+	github.com/getkin/kin-openapi v0.133.0 // indirect
 	github.com/go-openapi/jsonpointer v0.21.2 // indirect
 	github.com/go-openapi/swag v0.23.1 // indirect
 	github.com/go-redsync/redsync/v4 v4.13.0 // indirect
@@ -34,6 +34,7 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
+	github.com/woodsbury/decimal128 v1.4.0 // indirect
 	golang.org/x/sync v0.15.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

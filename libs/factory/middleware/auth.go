@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	"fmt"
+
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/auth/v2"
 	"github.com/tinh-tinh/cacher/v2"
@@ -51,6 +53,7 @@ func AuthN(ctx core.Ctx) error {
 	if contextInfo == nil {
 		return exception.InternalServer("Not context")
 	}
+
 	if contextInfo.Token == "" {
 		return exception.Unauthorized("Empty token")
 	}
@@ -61,17 +64,18 @@ func AuthN(ctx core.Ctx) error {
 		return exception.Unauthorized(err.Error())
 	}
 
-	cacheManger, ok := ctx.Ref(cacher.CACHE_MANAGER).(*cacher.Config)
-	if !ok || cacheManger == nil {
+	cacheManager, ok := ctx.Ref(cacher.REDIS).(*cacher.Config)
+	if !ok || cacheManager == nil {
 		return exception.Unauthorized("session invalid")
 	}
 
-	userCacher := cacher.NewSchema[UserContext](*cacheManger)
+	userCacher := cacher.NewSchema[UserContext](*cacheManager)
 	user, err := userCacher.Get(contextInfo.SessionId)
 	if err != nil {
 		return exception.Unauthorized(err.Error())
 	}
 
+	fmt.Println(3)
 	contextInfo.User = &user
 	return ctx.Next()
 }

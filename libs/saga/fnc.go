@@ -10,7 +10,7 @@ import (
 
 func SyncFnc(module core.Module, fnc microservices.FactoryFunc) microservices.FactoryFunc {
 	eventPublisher := module.Ref(EVENT_PUBLISHER).(*EventPulisher)
-	cacheSync := cacher.Inject[bool](module)
+	cacheSync := cacher.InjectSchemaByStore[bool](module, cacher.MEMORY)
 
 	return func(ctx microservices.Ctx) error {
 		sessionId := ctx.Headers("X-Sync-SessionId")

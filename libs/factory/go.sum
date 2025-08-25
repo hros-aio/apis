@@ -10,6 +10,8 @@ github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/r
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f/go.mod h1:cuUVRXasLTGF7a8hSLbxyZXjz+1KgoB3wDUb6vlszIc=
 github.com/getkin/kin-openapi v0.132.0 h1:3ISeLMsQzcb5v26yeJrBcdTCEQTag36ZjaGk7MIRUwk=
 github.com/getkin/kin-openapi v0.132.0/go.mod h1:3OlG51PCYNsPByuiMB0t4fjnNlIDnaEDsjiKUV8nL58=
+github.com/getkin/kin-openapi v0.133.0 h1:pJdmNohVIJ97r4AUFtEXRXwESr8b0bD721u/Tz6k8PQ=
+github.com/getkin/kin-openapi v0.133.0/go.mod h1:boAciF6cXk5FhPqe/NQeBTeenbjqU4LhWBf09ILVvWE=
 github.com/go-openapi/jsonpointer v0.21.2 h1:AqQaNADVwq/VnkCmQg6ogE+M3FOsKTytwges0JdwVuA=
 github.com/go-openapi/jsonpointer v0.21.2/go.mod h1:50I1STOfbY1ycR8jGz8DaMeLCdXiI6aDteEdRNNzpdk=
 github.com/go-openapi/swag v0.23.1 h1:lpsStH0n2ittzTnbaSloVZLuB5+fvSY/+hnagBjSNZU=
@@ -71,8 +73,12 @@ github.com/tinh-tinh/auth/v2 v2.2.1 h1:tRw/ty02k0tptK2KrbBXEpKEF55iCWR5zwtmakjBE
 github.com/tinh-tinh/auth/v2 v2.2.1/go.mod h1:aHf6gLB6qcOvPyPNUToLhxbzu4SbHTG3FAbmKcTRtxw=
 github.com/tinh-tinh/cacher/storage/redis v1.1.0 h1:2XfdBxwDeZefiMESQuQ5KCQE6e8sCQ3j7Uj6CfMOQTM=
 github.com/tinh-tinh/cacher/storage/redis v1.1.0/go.mod h1:VfXmg+CYMFLBT89f3TsDbHkZUrndl0tkaCgyX0KX4RI=
+github.com/tinh-tinh/cacher/storage/redis v1.2.0 h1:CXgYAH86tRcxbWiG0mCXSaw42a/2RL6WthMTpKwjVyA=
+github.com/tinh-tinh/cacher/storage/redis v1.2.0/go.mod h1:VYqzP7ez0b1t/F5JmDjDuFHNT1Jc3YDk3BrGyWB+mRw=
 github.com/tinh-tinh/cacher/v2 v2.3.0 h1:yyMCRPln1iJBCTdlu8PVasaBq0EqqfmCqdMJ35J3rrw=
 github.com/tinh-tinh/cacher/v2 v2.3.0/go.mod h1:pmACIB/qacQ1yeqo+OeBlscusyJfkkeuRjR55I+KrmM=
+github.com/tinh-tinh/cacher/v2 v2.4.0 h1:f9vez0YipMHLj1H2FJNZghR08wmAJujWLI8TDmayWHc=
+github.com/tinh-tinh/cacher/v2 v2.4.0/go.mod h1:KpFWMwHigKQfvZ+cJ62iQRNsxse3w6SezJ7rQIJVZdI=
 github.com/tinh-tinh/config/v2 v2.1.0 h1:ocgvoNP6v7PbTieBlSRo5Tbu0L4z3MKNIoHeC88W9cs=
 github.com/tinh-tinh/config/v2 v2.1.0/go.mod h1:cPlPcMMyl7sFwljSwbngljiNeoNf+Yu9gbfWG7BB2sM=
 github.com/tinh-tinh/fetch/v2 v2.0.1 h1:+MP/dG9/J+f3RgfnuYewxr5E26mpnfRgPFxmefqsbHE=
@@ -90,6 +96,8 @@ github.com/tinh-tinh/tinhtinh/v2 v2.3.1 h1:9XpJTDTvRt7xR8X5n6Ee6ND1xAPU1VrV9yYpV
 github.com/tinh-tinh/tinhtinh/v2 v2.3.1/go.mod h1:4nppE7KAIswZKutI9ElMqAD9kyash7aea0Ewowsqj5g=
 github.com/ugorji/go/codec v1.2.11 h1:BMaWp1Bb6fHwEtbplGBGJ498wD+LKlNSl25MjdZY4dU=
 github.com/ugorji/go/codec v1.2.11/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
+github.com/woodsbury/decimal128 v1.4.0 h1:xJATj7lLu4f2oObouMt2tgGiElE5gO6mSWUjQsBgUlc=
+github.com/woodsbury/decimal128 v1.4.0/go.mod h1:BP46FUrVjVhdTbKT+XuQh2xfQaGki9LMIRJSFuh6THU=
 golang.org/x/crypto v0.35.0 h1:b15kiHdrGCHrP6LvwaQ3c03kgNhhiMgvlhxHQhmg2Xs=
 golang.org/x/crypto v0.35.0/go.mod h1:dy7dXNW32cAb/6/PRuTNsix8T+vJAqvuIy5Bli/x0YQ=
 golang.org/x/sync v0.15.0 h1:KWH3jNZsfyT6xfAfKiz6MRNmd46ByHDYaZ7KSkCtdW8=

@@ -1,11 +1,7 @@
 package saga
 
 import (
-	"time"
-
 	"github.com/hros-aio/apis/libs/factory/shared"
-	"github.com/tinh-tinh/cacher/storage/sqlite3"
-	"github.com/tinh-tinh/cacher/v2"
 	"github.com/tinh-tinh/config/v2"
 	"github.com/tinh-tinh/tinhtinh/microservices"
 	"github.com/tinh-tinh/tinhtinh/microservices/kafka"
@@ -36,12 +32,6 @@ func Register() core.Modules {
 						}
 					},
 				),
-				cacher.Register(cacher.Config{
-					Store: sqlite3.New(sqlite3.Options{
-						Addr: "./data/saga.db",
-						Ttl:  1 * time.Hour,
-					}),
-				}),
 			},
 			Providers: []core.Providers{NewProvider},
 			Exports:   []core.Providers{NewProvider},

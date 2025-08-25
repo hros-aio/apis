@@ -48,6 +48,7 @@ func Pagination(ctx core.Ctx) error {
 	}
 
 	ctx.Set(PAGINATE, paginate)
+
 	return ctx.Next()
 }
 

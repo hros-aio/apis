@@ -21,7 +21,7 @@ type EventPulisher struct {
 func NewProvider(module core.Module) core.Provider {
 	client := microservices.InjectClient(module, microservices.KAFKA)
 	logger := logger.InjectLog(module)
-	cacheSaga := cacher.Inject[messages.SyncRegisteredPayload](module)
+	cacheSaga := cacher.InjectSchemaByStore[messages.SyncRegisteredPayload](module, cacher.MEMORY)
 
 	return module.NewProvider(core.ProviderOptions{
 		Name: EVENT_PUBLISHER,

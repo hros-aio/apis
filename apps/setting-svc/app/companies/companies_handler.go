@@ -1,6 +1,9 @@
 package companies
 
 import (
+	"time"
+
+	"github.com/hros-aio/apis/libs/factory/constants"
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
 	"github.com/hros-aio/apis/libs/saga/events"
@@ -24,9 +27,18 @@ func NewHandler(module core.Module) core.Provider {
 		}
 
 		input := &company.CompanyModel{
-			TenantID: data.TenantId,
-			Name:     data.Name,
-			Contact:  tenant.ContactPerson(data.Contact),
+			TenantID:       data.TenantId,
+			Name:           data.Name,
+			Legalname:      data.Name,
+			Status:         company.PendingStatus,
+			RegistrationNo: constants.DEFAULT_NA,
+			TaxID:          constants.DEFAULT_NA,
+			Website:        constants.DEFAULT_NA,
+			Industry:       constants.DEFAULT_NA,
+			Size:           company.SmallSize,
+			Logo:           constants.DEFAULT_NA,
+			FoundedDate:    time.Now(),
+			Contact:        tenant.ContactPerson(data.Contact),
 		}
 		createdCompany, err := repo.Create(input)
 		if err != nil {

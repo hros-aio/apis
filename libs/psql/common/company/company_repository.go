@@ -44,6 +44,14 @@ func (r *Repository) FindAll(where sqlorm.Query, options sqlorm.FindOptions) ([]
 	return models, total, nil
 }
 
+func (r *Repository) FindByID(id string) (*CompanyModel, error) {
+	data, err := r.Model.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+	return data.Dto(), nil
+}
+
 func (r *Repository) UpdateByID(id string, model *CompanyModel) (*CompanyModel, error) {
 	input := model.DataMapper()
 	data, err := r.Model.UpdateByID(id, input)

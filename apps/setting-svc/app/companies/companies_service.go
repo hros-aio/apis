@@ -4,6 +4,7 @@ import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/tinh-tinh/sqlorm/v2"
+	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
@@ -57,7 +58,21 @@ func (s *CompanyService) List(ctx middleware.ContextInfo, queryParams middleware
 }
 
 func (s *CompanyService) UpdateById(ctx middleware.ContextInfo, id string, model *company.CompanyModel) (*company.CompanyModel, error) {
-	foundCompany, err := s.companyRepo.UpdateByID(id, model)
+	foundCompany, err := s.companyRepo.FindByID(id)
+	if err != nil {
+		s.logger.Error("Failed to find company", logger.Metadata{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+	if err := s.checkTenantID(ctx, foundCompany); err != nil {
+		s.logger.Error("Not allowed access", logger.Metadata{
+			"tenant_id": ctx.TenantID,
+		})
+		return nil, err
+	}
+
+	updatedCompany, err := s.companyRepo.UpdateByID(id, model)
 	if err != nil {
 		s.logger.Error("Failed to update company", logger.Metadata{
 			"error": err.Error(),
@@ -65,16 +80,71 @@ func (s *CompanyService) UpdateById(ctx middleware.ContextInfo, id string, model
 		})
 		return nil, err
 	}
-	return foundCompany, nil
+
+	return updatedCompany, nil
 }
 
-func (s *CompanyService) DeleteById(ctx middleware.ContextInfo, id string) error {
-	err := s.companyRepo.Model.DeleteByID(id)
+func (s *CompanyService) ActiveByID(ctx middleware.ContextInfo, id string) (*company.CompanyModel, error) {
+	foundCompany, err := s.companyRepo.FindByID(id)
 	if err != nil {
-		s.logger.Error("Failed to delete company", logger.Metadata{
+		s.logger.Error("Failed to find company", logger.Metadata{
 			"error": err.Error(),
 		})
-		return err
+		return nil, err
+	}
+
+	if err := s.checkTenantID(ctx, foundCompany); err != nil {
+		s.logger.Error("Not allowed access", logger.Metadata{
+			"tenant_id": ctx.TenantID,
+		})
+		return nil, err
+	}
+
+	model := &company.CompanyModel{Status: company.ActiveStatus}
+	activeCompany, err := s.companyRepo.UpdateByID(id, model)
+	if err != nil {
+		s.logger.Error("Failed to activate company", logger.Metadata{
+			"error": err.Error(),
+			"model": model,
+		})
+		return nil, err
+	}
+
+	return activeCompany, nil
+}
+
+func (s *CompanyService) DeactiveByID(ctx middleware.ContextInfo, id string) (*company.CompanyModel, error) {
+	foundCompany, err := s.companyRepo.FindByID(id)
+	if err != nil {
+		s.logger.Error("Failed to find company", logger.Metadata{
+			"error": err.Error(),
+		})
+		return nil, err
+	}
+
+	if err := s.checkTenantID(ctx, foundCompany); err != nil {
+		s.logger.Error("Not allowed access", logger.Metadata{
+			"tenant_id": ctx.TenantID,
+		})
+		return nil, err
+	}
+
+	model := &company.CompanyModel{Status: company.InactiveStatus}
+	deactiveCompany, err := s.companyRepo.UpdateByID(id, model)
+	if err != nil {
+		s.logger.Error("Failed to deactivate company", logger.Metadata{
+			"error": err.Error(),
+			"model": model,
+		})
+		return nil, err
+	}
+
+	return deactiveCompany, nil
+}
+
+func (s *CompanyService) checkTenantID(ctx middleware.ContextInfo, data *company.CompanyModel) error {
+	if data.TenantID != ctx.TenantID {
+		return exception.Forbidden("You do not have permission to access this resource")
 	}
 	return nil
 }
