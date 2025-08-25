@@ -49,12 +49,20 @@ func (r *Repository) FindByID(id string) (*CompanyModel, error) {
 	if err != nil {
 		return nil, err
 	}
+	if data == nil {
+		return nil, nil
+	}
 	return data.Dto(), nil
 }
 
 func (r *Repository) UpdateByID(id string, model *CompanyModel) (*CompanyModel, error) {
 	input := model.DataMapper()
-	data, err := r.Model.UpdateByID(id, input)
+	_, err := r.Model.UpdateByID(id, input)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := r.Model.FindByID(id)
 	if err != nil {
 		return nil, err
 	}

@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/hros-aio/apis/libs/psql/common/tenant"
+	"github.com/hros-aio/apis/libs/saga/messages"
 )
 
 type CreateCompanyInput struct {
@@ -91,4 +92,22 @@ func (data *UpdateCompanyInput) Dto() *company.CompanyModel {
 	}
 
 	return model
+}
+
+func ToActiveMessage(model *company.CompanyModel) messages.CompanyActivatedPayload {
+	return messages.CompanyActivatedPayload{
+		ID:             model.ID.String(),
+		TenantID:       model.TenantID,
+		Name:           model.Name,
+		LegalName:      model.Legalname,
+		Status:         model.Status,
+		RegistrationNo: model.RegistrationNo,
+		TaxID:          model.TaxID,
+		Website:        model.Website,
+		Industry:       model.Industry,
+		Size:           model.Size,
+		Logo:           model.Logo,
+		FoundedDate:    model.FoundedDate,
+		HoldingID:      model.HoldingID,
+	}
 }

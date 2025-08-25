@@ -3,6 +3,9 @@ package companies
 import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/company"
+	"github.com/hros-aio/apis/libs/saga"
+	"github.com/hros-aio/apis/libs/saga/events"
+	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
@@ -10,17 +13,20 @@ import (
 )
 
 type CompanyService struct {
-	companyRepo *company.Repository
-	logger      *logger.Logger
+	companyRepo    *company.Repository
+	logger         *logger.Logger
+	eventPublisher *saga.EventPulisher
 }
 
 func NewService(module core.Module) core.Provider {
 	companyRepo := module.Ref(company.REPOSITORY).(*company.Repository)
 	logger := logger.InjectLog(module)
+	eventPublisher := module.Ref(saga.EVENT_PUBLISHER).(*saga.EventPulisher)
 
 	return module.NewProvider(&CompanyService{
-		companyRepo: companyRepo,
-		logger:      logger,
+		companyRepo:    companyRepo,
+		logger:         logger,
+		eventPublisher: eventPublisher,
 	})
 }
 
@@ -110,6 +116,9 @@ func (s *CompanyService) ActiveByID(ctx middleware.ContextInfo, id string) (*com
 		return nil, err
 	}
 
+	go s.eventPublisher.RegisterSync(events.CompanyActivated, messages.SyncDataPayload{
+		Data: ToActiveMessage(activeCompany),
+	})
 	return activeCompany, nil
 }
 

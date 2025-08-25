@@ -1,6 +1,7 @@
 package saga
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/tinh-tinh/cacher/v2"
@@ -20,6 +21,7 @@ func SyncFnc(module core.Module, fnc microservices.FactoryFunc) microservices.Fa
 		}
 
 		err := fnc(ctx)
+		fmt.Printf("Sync function executed with sessionId: %s\n", sessionId)
 		if err != nil {
 			go eventPublisher.RetrySync(sessionId)
 			return err
