@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/hros-aio/apis/apps/auth-svc/app/auth"
 	"github.com/hros-aio/apis/apps/auth-svc/app/permissions"
+	"github.com/hros-aio/apis/apps/auth-svc/app/roles"
 	"github.com/hros-aio/apis/apps/auth-svc/app/shared"
 	"github.com/hros-aio/apis/apps/auth-svc/app/users"
 	"github.com/hros-aio/apis/libs/factory"
@@ -16,14 +17,23 @@ import (
 )
 
 func NewModule() core.Module {
+	models := []interface{}{
+		&user.UserDB{},
+		&location.LocationDB{},
+		&company.CompanyDB{},
+		&permissions.PermissionDB{},
+		&roles.RoleDB{},
+	}
 	return core.NewModule(core.NewModuleOptions{
 		Imports: []core.Modules{
 			factory.Register(),
-			psql.Register(&user.UserDB{}, &location.LocationDB{}, &company.CompanyDB{}, &permissions.PermissionDB{}),
+			psql.Register(models...),
 			saga.Register(),
 			users.NewModule,
 			auth.NewModule,
 			shared.NewModule,
+			roles.NewModule,
+			permissions.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,

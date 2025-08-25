@@ -66,7 +66,7 @@ func (s *PermissionService) UpdateByID(ctx middleware.ContextInfo, id string, mo
 func (s *PermissionService) DeleteByID(ctx middleware.ContextInfo, id string) error {
 	err := s.permissionRepo.Model.DeleteByID(id)
 	if err != nil {
-		s.logger.Error("Failed to delete grade", logger.Metadata{
+		s.logger.Error("Failed to delete permission", logger.Metadata{
 			"error": err.Error(),
 			"id":    id,
 		})
