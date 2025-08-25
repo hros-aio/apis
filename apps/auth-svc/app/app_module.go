@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/hros-aio/apis/apps/auth-svc/app/auth"
+	"github.com/hros-aio/apis/apps/auth-svc/app/permissions"
 	"github.com/hros-aio/apis/apps/auth-svc/app/shared"
 	"github.com/hros-aio/apis/apps/auth-svc/app/users"
 	"github.com/hros-aio/apis/libs/factory"
@@ -18,7 +19,7 @@ func NewModule() core.Module {
 	return core.NewModule(core.NewModuleOptions{
 		Imports: []core.Modules{
 			factory.Register(),
-			psql.Register(&user.UserDB{}, &location.LocationDB{}, &company.CompanyDB{}),
+			psql.Register(&user.UserDB{}, &location.LocationDB{}, &company.CompanyDB{}, &permissions.PermissionDB{}),
 			saga.Register(),
 			users.NewModule,
 			auth.NewModule,

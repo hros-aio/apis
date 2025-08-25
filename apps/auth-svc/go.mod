@@ -12,6 +12,7 @@ require (
 	github.com/tinh-tinh/cacher/v2 v2.4.0
 	github.com/tinh-tinh/config/v2 v2.1.0
 	github.com/tinh-tinh/pubsub/v2 v2.1.0
+	github.com/tinh-tinh/sqlorm/v2 v2.3.2
 	github.com/tinh-tinh/swagger/v2 v2.2.1
 	github.com/tinh-tinh/tinhtinh/microservices v1.1.0
 	github.com/tinh-tinh/tinhtinh/microservices/kafka v1.0.0
@@ -60,7 +61,6 @@ require (
 	github.com/tinh-tinh/cacher/storage/redis v1.2.0 // indirect
 	github.com/tinh-tinh/fetch/v2 v2.0.1 // indirect
 	github.com/tinh-tinh/queue/v2 v2.1.0 // indirect
-	github.com/tinh-tinh/sqlorm/v2 v2.3.2 // indirect
 	github.com/woodsbury/decimal128 v1.4.0 // indirect
 	golang.org/x/crypto v0.41.0 // indirect
 	golang.org/x/net v0.43.0 // indirect
