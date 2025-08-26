@@ -31,6 +31,7 @@ func Register() core.Modules {
 						},
 						RetryFailures: 5,
 						Workers:       10,
+						Timeout:       1 * time.Hour,
 					}
 				}),
 				cacher.RegisterMultiFactory(func(ref core.RefProvider) []cacher.Config {
