@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"github.com/hros-aio/apis/apps/directory-svc/app/employees"
 	"github.com/hros-aio/apis/apps/directory-svc/app/shared/companies"
 	"github.com/hros-aio/apis/apps/directory-svc/app/shared/locations"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
@@ -11,6 +12,7 @@ func NewModule(module core.Module) core.Module {
 		Imports: []core.Modules{
 			companies.NewModule,
 			locations.NewModule,
+			employees.NewModule,
 		},
 	})
 }

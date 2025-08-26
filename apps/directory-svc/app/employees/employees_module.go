@@ -7,6 +7,7 @@ import (
 
 func NewModule(module core.Module) core.Module {
 	return module.New(core.NewModuleOptions{
-		Imports: []core.Modules{employee.NewModule},
+		Imports:     []core.Modules{employee.NewModule},
+		Controllers: []core.Controllers{NewController},
 	})
 }

@@ -20,4 +20,4 @@ run-time-svc:
 
 .PHONY: run-workers
 run-workers:
-	cd apps/workers/sync-worker && go run main.go
+	cd workers/sync-worker && go run main.go

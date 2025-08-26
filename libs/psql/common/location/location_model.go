@@ -11,12 +11,12 @@ import (
 )
 
 type AddressInfo struct {
-	Line     string `json:"addressLine"`
-	City     string `json:"city"`
-	State    string `json:"state"`
-	Country  string `json:"country"`
-	Zipcode  string `json:"zipCode"`
-	Timezone string `json:"timezone"`
+	Line     string `json:"addressLine" validate:"required" example:"123 Main St"`
+	City     string `json:"city" validate:"required" example:"Anytown"`
+	State    string `json:"state" validate:"required" example:"CA"`
+	Country  string `json:"country" validate:"required" example:"USA"`
+	Zipcode  string `json:"zipCode" validate:"required" example:"12345"`
+	Timezone string `json:"timezone" validate:"required" example:"America/Los_Angeles"`
 }
 
 type LocationModel struct {

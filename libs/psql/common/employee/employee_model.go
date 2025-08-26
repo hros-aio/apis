@@ -11,20 +11,20 @@ import (
 )
 
 type GeneralInfo struct {
-	FirstName     string               `json:"firstName"`
-	MiddleName    string               `json:"middleName"`
-	LastName      string               `json:"lastName"`
-	Birth         string               `json:"birth"`
-	Gender        string               `json:"gender"`
-	WorkEmail     string               `json:"workEmail"`
-	WorkPhone     string               `json:"workPhone"`
-	PersonalEmail string               `json:"personalEmail"`
-	PersonalPhone string               `json:"personalPhone"`
-	Avatar        string               `json:"avatar"`
-	PermanentAddr location.AddressInfo `json:"permanentAddr"`
-	CurrentAddr   location.AddressInfo `json:"currentAddr"`
-	MaritalStatus string               `json:"maritalStatus"`
-	IsResidential bool                 `json:"isResidential"`
+	FirstName     string                `json:"firstName" validate:"required,isAlpha" example:"John"`
+	MiddleName    string                `json:"middleName" validate:"isAlpha" example:"Doe"`
+	LastName      string                `json:"lastName" validate:"required,isAlpha" example:"Smith"`
+	Birth         string                `json:"birth" validate:"required,isDateString" example:"1990-01-01"`
+	Gender        string                `json:"gender" validate:"required" example:"male"`
+	WorkEmail     string                `json:"workEmail" validate:"required,isEmail" example:"john.doe@example.com"`
+	WorkPhone     string                `json:"workPhone" example:"123-456-7890"`
+	PersonalEmail string                `json:"personalEmail" example:"john.doe@gmail.com"`
+	PersonalPhone string                `json:"personalPhone" example:"098-765-4321"`
+	Avatar        string                `json:"avatar" example:"https://example.com/avatar.jpg"`
+	PermanentAddr *location.AddressInfo `json:"permanentAddr" validate:"nested"`
+	CurrentAddr   *location.AddressInfo `json:"currentAddr" validate:"nested"`
+	MaritalStatus string                `json:"maritalStatus" example:"single"`
+	IsResidential bool                  `json:"isResidential" example:"true"`
 }
 
 type EmployeeModel struct {
