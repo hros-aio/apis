@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/hros-aio/apis/apps/directory-svc/app/employees"
 	"github.com/hros-aio/apis/apps/directory-svc/app/shared"
 	"github.com/hros-aio/apis/libs/factory"
 	"github.com/hros-aio/apis/libs/factory/middleware"
@@ -24,6 +25,7 @@ func NewModule() core.Module {
 			psql.Register(models...),
 			saga.Register(),
 			shared.NewModule,
+			employees.NewModule,
 		},
 		Middlewares: []core.Middleware{
 			middleware.SetContext,

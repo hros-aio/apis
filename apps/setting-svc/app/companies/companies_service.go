@@ -5,7 +5,6 @@ import (
 	"github.com/hros-aio/apis/libs/psql/common/company"
 	"github.com/hros-aio/apis/libs/saga"
 	"github.com/hros-aio/apis/libs/saga/events"
-	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/sqlorm/v2"
 	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
@@ -116,9 +115,7 @@ func (s *CompanyService) ActiveByID(ctx middleware.ContextInfo, id string) (*com
 		return nil, err
 	}
 
-	go s.eventPublisher.RegisterSync(events.CompanyActivated, messages.SyncDataPayload{
-		Data: ToActiveMessage(activeCompany),
-	})
+	go s.eventPublisher.RegisterSync(events.CompanyActivated, ToActiveMessage(activeCompany))
 	return activeCompany, nil
 }
 

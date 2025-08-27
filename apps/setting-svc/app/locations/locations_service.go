@@ -8,6 +8,7 @@ import (
 	"github.com/hros-aio/apis/libs/saga/events"
 	"github.com/hros-aio/apis/libs/saga/messages"
 	"github.com/tinh-tinh/sqlorm/v2"
+	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
@@ -33,13 +34,13 @@ func NewService(module core.Module) core.Provider {
 func (s *LocationService) Create(ctx middleware.ContextInfo, model *location.LocationModel) (*location.LocationModel, error) {
 	createdLocation, err := s.locationRepo.Create(model)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[LocationService][Create] Failed to create location", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
 
-	go s.eventPublisher.RegisterSync(events.LocationCreated, messages.SyncDataPayload{
-		Data: ToCreatedMessage(createdLocation),
-	})
+	go s.eventPublisher.RegisterSync(events.LocationCreated, ToCreatedMessage(createdLocation))
 	return createdLocation, nil
 }
 
@@ -58,7 +59,9 @@ func (s *LocationService) List(ctx middleware.ContextInfo, queryParams middlewar
 		Limit:  queryParams.Limit,
 	})
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[LocationService][List] Failed to list locations", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, 0, err
 	}
 
@@ -68,7 +71,9 @@ func (s *LocationService) List(ctx middleware.ContextInfo, queryParams middlewar
 func (s *LocationService) GetByID(ctx middleware.ContextInfo, id string) (*location.LocationModel, error) {
 	foundLocation, err := s.locationRepo.FindByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[LocationService][GetByID] Failed to get location by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
 
@@ -78,12 +83,23 @@ func (s *LocationService) GetByID(ctx middleware.ContextInfo, id string) (*locat
 func (s *LocationService) UpdateByID(ctx middleware.ContextInfo, id string, model *location.LocationModel) (*location.LocationModel, error) {
 	foundLocation, err := s.locationRepo.FindByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[LocationService][UpdateByID] Failed to find location by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
+	if foundLocation == nil {
+		s.logger.Error("[LocationService][UpdateByID] Location not found", logger.Metadata{
+			"id": id,
+		})
+		return nil, exception.NotFound("location not found")
+	}
+
 	updatedLocation, err := s.locationRepo.UpdateByID(id, model)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[LocationService][UpdateByID] Failed to update location by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
 	go s.eventPublisher.Publish(events.LocationUpdated, ToUpdatedMessage(foundLocation, updatedLocation))

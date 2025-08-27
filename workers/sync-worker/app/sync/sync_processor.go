@@ -27,7 +27,7 @@ func NewProcessor(module core.Module) core.Provider {
 			return
 		}
 
-		eventPublisher.Publish(data.Event, data.SyncDataPayload.Data, microservices.Header{
+		eventPublisher.Publish(data.Event, data.Data, microservices.Header{
 			"sessionId": sessionId,
 		})
 	})

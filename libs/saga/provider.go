@@ -42,7 +42,7 @@ func (p *EventPulisher) Publish(eventType string, data any, headers ...microserv
 	p.logger.Infof("Publish message %v to event %s successfully", data, eventType)
 }
 
-func (p *EventPulisher) RegisterSync(eventType string, data messages.SyncDataPayload) error {
+func (p *EventPulisher) RegisterSync(eventType string, data any) error {
 	sessionId, err := uuid.NewV7()
 	if err != nil {
 		return err
@@ -51,10 +51,7 @@ func (p *EventPulisher) RegisterSync(eventType string, data messages.SyncDataPay
 	payload := messages.SyncRegisteredPayload{
 		SessionId: sessionId,
 		Event:     eventType,
-		SyncDataPayload: messages.SyncDataPayload{
-			PreviousData: data.PreviousData,
-			Data:         data.Data,
-		},
+		Data:      data,
 	}
 
 	err = p.cacheSaga.Set(sessionId.String(), payload)

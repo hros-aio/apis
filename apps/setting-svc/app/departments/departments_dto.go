@@ -4,6 +4,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/department"
+	"github.com/hros-aio/apis/libs/saga/messages"
 )
 
 type CreateDepartmentInput struct {
@@ -34,4 +35,30 @@ func (data UpdateDepartmentInput) Dto() *department.DepartmentModel {
 		IsDivision: data.IsDivision,
 		ParentID:   data.ParentID,
 	}
+}
+
+func ToCreatedMessage(model *department.DepartmentModel) messages.DepartmentCreatedPayload {
+	msg := messages.DepartmentCreatedPayload{
+		ID:         model.ID.String(),
+		Name:       model.Name,
+		IsDivision: model.IsDivision,
+		TenantID:   model.TenantID,
+		CompanyID:  model.CompanyID.String(),
+		Code:       model.Code,
+	}
+
+	if model.ParentID != nil {
+		msg.ParentID = model.ParentID.String()
+	}
+
+	return msg
+}
+
+func ToUpdatedMessage(oldData *department.DepartmentModel, newData *department.DepartmentModel) messages.DepartmentUpdatedPayload {
+	msg := messages.DepartmentUpdatedPayload{
+		PreviouseData: ToCreatedMessage(oldData),
+		Data:          ToCreatedMessage(newData),
+	}
+
+	return msg
 }

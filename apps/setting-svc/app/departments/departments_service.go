@@ -5,7 +5,9 @@ import (
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/psql/common/department"
 	"github.com/hros-aio/apis/libs/saga"
+	"github.com/hros-aio/apis/libs/saga/events"
 	"github.com/tinh-tinh/sqlorm/v2"
+	"github.com/tinh-tinh/tinhtinh/v2/common/exception"
 	"github.com/tinh-tinh/tinhtinh/v2/core"
 	"github.com/tinh-tinh/tinhtinh/v2/middleware/logger"
 )
@@ -29,12 +31,16 @@ func NewService(module core.Module) core.Provider {
 }
 
 func (s *DepartmentService) Create(ctx middleware.ContextInfo, model *department.DepartmentModel) (*department.DepartmentModel, error) {
-	createdLocation, err := s.departmentRepo.Create(model)
+	createdDepartment, err := s.departmentRepo.Create(model)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[DepartmentService][Create] Failed to create department", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
-	return createdLocation, nil
+
+	go s.eventPublisher.RegisterSync(events.DepartmentCreated, ToCreatedMessage(createdDepartment))
+	return createdDepartment, nil
 }
 
 func (s *DepartmentService) List(ctx middleware.ContextInfo, queryParams middleware.Paginate) ([]*department.DepartmentModel, int64, error) {
@@ -52,7 +58,9 @@ func (s *DepartmentService) List(ctx middleware.ContextInfo, queryParams middlew
 		Limit:  queryParams.Limit,
 	})
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[DepartmentService][List] Failed to list departments", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, 0, err
 	}
 
@@ -60,28 +68,50 @@ func (s *DepartmentService) List(ctx middleware.ContextInfo, queryParams middlew
 }
 
 func (s *DepartmentService) GetByID(ctx middleware.ContextInfo, id string) (*department.DepartmentModel, error) {
-	foundLocation, err := s.departmentRepo.FindByID(id)
+	foundDepartment, err := s.departmentRepo.FindByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[DepartmentService][GetByID] Failed to get department by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
 
-	return foundLocation, nil
+	return foundDepartment, nil
 }
 
 func (s *DepartmentService) UpdateByID(ctx middleware.ContextInfo, id string, model *department.DepartmentModel) (*department.DepartmentModel, error) {
-	updatedLocation, err := s.departmentRepo.UpdateByID(id, model)
+	foundDepartment, err := s.departmentRepo.FindByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[DepartmentService][UpdateByID] Failed to find department by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return nil, err
 	}
-	return updatedLocation, nil
+	if foundDepartment == nil {
+		s.logger.Error("[DepartmentService][UpdateByID] Department not found", logger.Metadata{
+			"id": id,
+		})
+		return nil, exception.NotFound("department not found")
+	}
+
+	updatedDepartment, err := s.departmentRepo.UpdateByID(id, model)
+	if err != nil {
+		s.logger.Error("[DepartmentService][UpdateByID] Failed to update department by ID", logger.Metadata{
+			"err": err.Error(),
+		})
+		return nil, err
+	}
+
+	go s.eventPublisher.RegisterSync(events.DepartmentUpdated, ToUpdatedMessage(foundDepartment, updatedDepartment))
+	return updatedDepartment, nil
 }
 
 func (s *DepartmentService) DeleteById(ctx middleware.ContextInfo, id string) error {
 	err := s.departmentRepo.Model.DeleteByID(id)
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.Error("[DepartmentService][DeleteById] Failed to delete department by ID", logger.Metadata{
+			"err": err.Error(),
+		})
 		return err
 	}
 	return nil
