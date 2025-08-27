@@ -1,8 +1,7 @@
 package middleware
 
 import (
-	"fmt"
-
+	"github.com/hros-aio/apis/libs/factory/keys"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/auth/v2"
 	"github.com/tinh-tinh/cacher/v2"
@@ -70,12 +69,11 @@ func AuthN(ctx core.Ctx) error {
 	}
 
 	userCacher := cacher.NewSchema[UserContext](*cacheManager)
-	user, err := userCacher.Get(contextInfo.SessionId)
+	user, err := userCacher.Get(keys.AuthSessionId(contextInfo.SessionId))
 	if err != nil {
 		return exception.Unauthorized(err.Error())
 	}
 
-	fmt.Println(3)
 	contextInfo.User = &user
 	return ctx.Next()
 }

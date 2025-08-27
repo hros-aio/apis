@@ -3,6 +3,7 @@ package auth
 import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
+	"github.com/hros-aio/apis/libs/factory/keys"
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/hros-aio/apis/libs/psql/common/user"
@@ -96,7 +97,7 @@ func (s *AuthService) generateToken(foundUser *user.UserModel, isRefreshToken bo
 	}
 
 	sessionId := uuid.NewString()
-	err := s.userCache.Set(sessionId, middleware.UserContext{
+	err := s.userCache.Set(keys.AuthSessionId(sessionId), middleware.UserContext{
 		ID:       foundUser.ID.String(),
 		Email:    foundUser.Email,
 		TenantId: foundUser.TenantId,

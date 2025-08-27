@@ -10,9 +10,9 @@ run-setting-svc:
 run-auth-svc:
 	cd apps/auth-svc && go run main.go
 
-.PHONY: run-orchestrator-svc
-run-orchestrator-svc:
-	cd apps/orchestrator-svc && go run main.go
+.PHONY: run-directory-svc
+run-directory-svc:
+	cd apps/directory-svc && go run main.go
 
 .PHONY: run-time-svc
 run-time-svc:

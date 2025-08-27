@@ -28,7 +28,7 @@ func NewProcessor(module core.Module) core.Provider {
 		}
 
 		eventPublisher.Publish(data.Event, data.Data, microservices.Header{
-			"sessionId": sessionId,
+			"X-Sync-SessionId": sessionId,
 		})
 	})
 	return processor

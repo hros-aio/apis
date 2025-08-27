@@ -29,9 +29,10 @@ func Register() core.Modules {
 							Password: cfg.Redis.Pass,
 							DB:       cfg.Redis.DB,
 						},
-						RetryFailures: 5,
-						Workers:       10,
-						Timeout:       1 * time.Hour,
+						RetryFailures:    5,
+						Workers:          10,
+						Timeout:          1 * time.Hour,
+						RemoveOnComplete: true,
 					}
 				}),
 				cacher.RegisterMultiFactory(func(ref core.RefProvider) []cacher.Config {

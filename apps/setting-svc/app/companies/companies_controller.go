@@ -1,8 +1,6 @@
 package companies
 
 import (
-	"fmt"
-
 	"github.com/hros-aio/apis/libs/factory/middleware"
 	"github.com/hros-aio/apis/libs/factory/shared"
 	"github.com/tinh-tinh/swagger/v2"
@@ -32,11 +30,9 @@ func NewController(module core.Module) core.Controller {
 	ctrl.
 		Use(middleware.Pagination).
 		Get("", func(ctx core.Ctx) error {
-			fmt.Println(1)
 			contextInfo := core.Execution[middleware.ContextInfo](middleware.APP_CONTEXT, ctx)
 			queryParams := core.Execution[middleware.Paginate](middleware.PAGINATE, ctx)
 
-			fmt.Println(contextInfo, queryParams)
 			data, total, err := svc.List(*contextInfo, *queryParams)
 			if err != nil {
 				return err
