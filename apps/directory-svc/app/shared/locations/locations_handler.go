@@ -19,7 +19,7 @@ func NewHandler(module core.Module) core.Provider {
 		var data messages.LocationCreatedPayload
 		err := ctx.PayloadParser(&data)
 		if err != nil {
-			log.Error("Failed to parse message", logger.Metadata{
+			log.Error("[LocationHandler] Failed to parse message", logger.Metadata{
 				"err":       err,
 				"eventType": events.LocationCreated,
 			})
@@ -29,9 +29,10 @@ func NewHandler(module core.Module) core.Provider {
 		model := ToModel(data)
 		_, err = locationRepo.Create(model)
 		if err != nil {
-			log.Error("Failed to create location", logger.Metadata{
-				"err":   err,
-				"input": model,
+			log.Error("[LocationHandler] Failed to create location", logger.Metadata{
+				"err":       err,
+				"input":     model,
+				"eventType": events.LocationCreated,
 			})
 			return err
 		}
